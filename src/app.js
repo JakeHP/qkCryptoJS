@@ -1,12 +1,11 @@
 import * as AppConfig from "./Config/AppConfig";
-import {Photon} from "./Messages/Photon.js";
 import {Sender} from "./Actors/Sender.js";
+import {QuantumChannel} from "./Channels/QuantumChannel.js"
 
 Sender.generateRandomBits();
 Sender.generateRandomBasis();
 Sender.calculatePolarizations();
-
-//Sender.sendPolarizationsToChannel();
+Sender.sendPolarizationsToChannel(QuantumChannel);
 
 //Receiver.generateRandomBasis();
 //Receiver.measurePolarizationsFromChannel();

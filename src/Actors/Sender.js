@@ -62,10 +62,17 @@ export var Sender = (() => {
         }
     }
 
+    function sendPolarizationsToChannel(channel) {
+        if(BaseCommunicator.isValidChannel(channel)){
+            channel.PhotonPolarizations = BaseCommunicator.photonPolarizations;
+        }
+    }
+
     return {
         generateRandomBits: generateRandomBits,
         generateRandomBasis: BaseCommunicator.generateRandomBasis,
-        calculatePolarizations: calculatePolarizations
+        calculatePolarizations: calculatePolarizations,
+        sendPolarizationsToChannel: sendPolarizationsToChannel
     };
 
 })();

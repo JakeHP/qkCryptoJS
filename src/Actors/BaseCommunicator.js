@@ -61,6 +61,7 @@ export var BaseCommunicator = (() => {
         otherBasis: otherBasis,
         photonPolarizations: photonPolarizations,
         sharedKey: sharedKey,
+        isValidChannel: isValidChannel,
         readFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
         generateRandomBasis: generateRandomBasis
