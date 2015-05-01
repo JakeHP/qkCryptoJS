@@ -1,6 +1,6 @@
 import * as Polarizations from "../Constants/Polarizations.js";
 
-export var Photon = (() => {
+export var getPhoton = (() => {
 
     var PolarizationState = undefined;
 
@@ -27,4 +27,4 @@ export var Photon = (() => {
         getState: getState,
         setState: setState
     }
-})();
+});

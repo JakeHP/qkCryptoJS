@@ -6,7 +6,7 @@ import {PhotonPulseSize} from "../Config/AppConfig.js";
 export var BaseCommunicator = (() => {
 
     var randomBasis = [];
-    var photonPulse = [];
+    var photonPolarizationPulse = [];
     var otherBasis = [];
     var sharedKey = [];
     var channel = undefined;
@@ -31,33 +31,35 @@ export var BaseCommunicator = (() => {
         }
     }
 
-    function setChannel(channel){
+    function isValidChannel(channel){
         if(channel === undefined || channel.BasisUsed === undefined || channel.PhotonPulse === undefined){
-            throw "BaseCommunicator.js - setChannel() - Invalid channel provided.";
+            throw "BaseCommunicator.js - isValidChannel() - Invalid channel provided.";
         }
-        otherBasis = channel.BasisUsed;
+        return true;
+    }
+
+    function setChannel(channel){
+        if(isValidChannel(channel)){
+            this.channel = channel;
+        }
     }
 
     function readBasisFromChannel(channel){
-        if(channel === undefined || channel.BasisUsed === undefined){
-            throw "BaseCommunicator.js - readBasisFromChannel() - Invalid channel provided.";
+        if(isValidChannel(channel)){
+            this.otherBasis = channel.BasisUsed;
         }
-        if(channel.BasisUsed.length === 0){
-            throw "BaseCommunicator.js - readBasisFromChannel() - Channel is empty.";
-        }
-        otherBasis = channel.BasisUsed;
     }
 
     function sendBasisToChannel(channel, basis){
-        if(basis === undefined || channel === undefined){
-            throw "BaseCommunicator.js - sendBasisToChannel() - Invalid parameter.";
+        if(isValidChannel(channel)){
+            this.channel.BasisUsed = basis;
         }
-        channel.BasisUsed = basis;
     }
 
     return {
         randomBasis: randomBasis,
-        photonPulse: photonPulse,
+        otherBasis: otherBasis,
+        photonPolarizationPulse: photonPolarizationPulse,
         sharedKey: sharedKey,
         readFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,

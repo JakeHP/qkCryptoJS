@@ -1,10 +1,17 @@
 import * as AppConfig from "./Config/AppConfig";
 import {Photon} from "./Messages/Photon.js";
-import {BaseCommunicator} from "./Actors/BaseCommunicator.js";
+import {Sender} from "./Actors/Sender.js";
 
+Sender.generateRandomBits();
+Sender.generateRandomBasis();
+//Sender.calculatePolarizations();
+//Sender.sendPolarizationsToChannel();
 
-console.log(BaseCommunicator);
-console.log(BaseCommunicator.randomBasis);
-BaseCommunicator.generateRandomBasis();
-console.log("Post generation:");
-console.log(BaseCommunicator.randomBasis);
+//Receiver.generateRandomBasis();
+//Receiver.measurePolarizationsFromChannel();
+
+//Sender.sendBasisToChannel();
+//Receiver.readBasisFromChannel();
+
+//Receiver.sendBasisToChannel();
+//Sender.readBasisFromChannel();

@@ -1,7 +1,10 @@
 require("babel/polyfill");
 
-import {BaseCommunicator} from "./BaseCommunicator.js";
+import {getPhoton} from "../Messages/Photon.js"
+import {baseCommunicator} from "./BaseCommunicator.js";
 import {PhotonPulseSize} from "../Config/AppConfig.js";
+import {Degrees} from "../Constants/Polarizations.js";
+import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var Sender = (() => {
 
@@ -25,9 +28,28 @@ export var Sender = (() => {
         }
     }
 
+    function calculatePolarization(bit, basis){
+        if((bit !== 0 && bit !== 1) || (basis !== Diagonal && basis !== Rectangular)){
+            throw "Sender.js - calculatePolarization() - Invalid parameters. Bit: ${bit} Basis: ${basis}";
+        }
+        if(basis === Rectangular){
+            if(bit === 0){
+                return Degrees.Zero;
+            }else{
+                return Degrees.Ninety;
+            }
+        }else{
+            if(bit === 0){
+                return Degrees.FortyFive;
+            }else{
+                return Degrees.OneHundredThirtyFive;
+            }
+        }
+    }
+
     return {
         generateRandomBits: generateRandomBits,
-        generateRandomBasis: BaseCommunicator.generateRandomBasis
+        generateRandomBasis: baseCommunicator.generateRandomBasis
     };
 
 })();
