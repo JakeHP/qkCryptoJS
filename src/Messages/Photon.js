@@ -1,16 +1,18 @@
-import * as Polarizations from "../Constants/Polarizations.js";
+import {Degrees} from "../Constants/Polarizations.js";
 
 export var getPhoton = (() => {
 
     var PolarizationState = undefined;
 
     function isValidState(state){
-        for (var polarization in Polarizations){
-            if(Polarizations[polarization] === state){
-                return true;
+        for (var prop in Degrees){
+            if(Degrees.hasOwnProperty(prop)){
+                if(Degrees[prop] === state){
+                    return true;
+                }
             }
         }
-        throw "Photon.js - isValidState() - Invalid State Provided - State: " + state;
+        throw `Photon.js - isValidState() - Invalid State Provided - State: ${state}`;
     }
 
     function setState(state){

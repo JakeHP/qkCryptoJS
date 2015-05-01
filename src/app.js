@@ -4,7 +4,8 @@ import {Sender} from "./Actors/Sender.js";
 
 Sender.generateRandomBits();
 Sender.generateRandomBasis();
-//Sender.calculatePolarizations();
+Sender.calculatePolarizations();
+
 //Sender.sendPolarizationsToChannel();
 
 //Receiver.generateRandomBasis();

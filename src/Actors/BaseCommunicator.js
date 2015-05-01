@@ -1,19 +1,19 @@
 require("babel/polyfill");
 
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
-import {PhotonPulseSize} from "../Config/AppConfig.js";
+import {PhotonPolarizationsSize} from "../Config/AppConfig.js";
 
 export var BaseCommunicator = (() => {
 
     var randomBasis = [];
-    var photonPolarizationPulse = [];
+    var photonPolarizations = [];
     var otherBasis = [];
     var sharedKey = [];
     var channel = undefined;
 
     function* basisGenerator(){
         var i=0;
-        while(i<PhotonPulseSize){
+        while(i<PhotonPolarizationsSize){
             i++;
             yield (Math.floor(Math.random() * (2)) === 1) ? Diagonal : Rectangular;
         }
@@ -32,8 +32,8 @@ export var BaseCommunicator = (() => {
     }
 
     function isValidChannel(channel){
-        if(channel === undefined || channel.BasisUsed === undefined || channel.PhotonPulse === undefined){
-            throw "BaseCommunicator.js - isValidChannel() - Invalid channel provided.";
+        if(channel === undefined || channel.BasisUsed === undefined || channel.PhotonPolarizations === undefined){
+            throw 'BaseCommunicator.js - isValidChannel() - Invalid channel provided.';
         }
         return true;
     }
@@ -59,7 +59,7 @@ export var BaseCommunicator = (() => {
     return {
         randomBasis: randomBasis,
         otherBasis: otherBasis,
-        photonPolarizationPulse: photonPolarizationPulse,
+        photonPolarizations: photonPolarizations,
         sharedKey: sharedKey,
         readFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
