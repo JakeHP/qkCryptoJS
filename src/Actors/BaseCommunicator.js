@@ -9,7 +9,6 @@ export var getBaseCommunicator = (() => {
     var photonPolarizations = [];
     var otherBasis = [];
     var sharedKey = [];
-    var channel = undefined;
 
     function* basisGenerator(){
         var i=0;
@@ -38,21 +37,15 @@ export var getBaseCommunicator = (() => {
         return true;
     }
 
-    function setChannel(channel){
-        if(isValidChannel(channel)){
-            this.channel = channel;
-        }
-    }
-
     function readBasisFromChannel(channel){
         if(isValidChannel(channel)){
-            this.otherBasis = channel.BasisUsed;
+            this.otherBasis = channel.BasisUsed.slice(0);
         }
     }
 
-    function sendBasisToChannel(channel, basis){
+    function sendBasisToChannel(channel){
         if(isValidChannel(channel)){
-            this.channel.BasisUsed = basis;
+            channel.BasisUsed = randomBasis.slice(0);
         }
     }
 

@@ -60,6 +60,7 @@ export var Sender = (() => {
             var photon = getPhoton();
             var polarization = calculatePolarization(this.randomBits[i], this.randomBasis[i]);
             photon.setState(polarization);
+            photon.setBasis(this.randomBasis[i]);
             BaseCommunicator.photonPolarizations.push(photon);
         }
     }
@@ -74,7 +75,9 @@ export var Sender = (() => {
         generateRandomBits: generateRandomBits,
         generateRandomBasis: BaseCommunicator.generateRandomBasis,
         calculatePolarizations: calculatePolarizations,
-        sendPolarizationsToChannel: sendPolarizationsToChannel
+        sendPolarizationsToChannel: sendPolarizationsToChannel,
+        sendBasisToChannel: BaseCommunicator.sendBasisToChannel,
+        readBasisFromChannel: BaseCommunicator.readBasisFromChannel
     };
 
 })();

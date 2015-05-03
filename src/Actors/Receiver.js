@@ -12,13 +12,23 @@ export var Receiver = (() => {
 
     function measurePolarizationsFromChannel(channel){
         if(BaseCommunicator.isValidChannel(channel)){
-            BaseCommunicator.photonPolarizations = channel.PhotonPolarizations.slice(0);
+            var unmeasuredPolarizations = channel.PhotonPolarizations.slice(0);
+            if(unmeasuredPolarizations.length === BaseCommunicator.randomBasis.length){
+                for(var i=0; i<unmeasuredPolarizations.length; i++){
+                    var basis = BaseCommunicator.randomBasis[i];
+                    //TODO
+                }
+            }else{
+                throw "Receiver.js - measurePolarizationsFromChannel() - Length of sender polars is not same as receiver random basis.";
+            }
         }
     }
 
     return {
         generateRandomBasis: BaseCommunicator.generateRandomBasis,
-        measurePolarizationsFromChannel: measurePolarizationsFromChannel
+        measurePolarizationsFromChannel: measurePolarizationsFromChannel,
+        sendBasisToChannel: BaseCommunicator.sendBasisToChannel,
+        readBasisFromChannel: BaseCommunicator.readBasisFromChannel
     };
 
 })();
