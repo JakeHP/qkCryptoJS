@@ -3,7 +3,7 @@ require("babel/polyfill");
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
 import {PhotonPolarizationsSize} from "../Config/AppConfig.js";
 
-export var BaseCommunicator = (() => {
+export var getBaseCommunicator = (() => {
 
     var randomBasis = [];
     var photonPolarizations = [];
@@ -67,4 +67,4 @@ export var BaseCommunicator = (() => {
         generateRandomBasis: generateRandomBasis
     };
 
-})();
+});

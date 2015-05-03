@@ -1,12 +1,14 @@
 require("babel/polyfill");
 
 import {getPhoton} from "../Messages/Photon.js"
-import {BaseCommunicator} from "./BaseCommunicator.js";
+import {getBaseCommunicator} from "./BaseCommunicator.js";
 import {PhotonPolarizationsSize} from "../Config/AppConfig.js";
 import {Degrees} from "../Constants/Polarizations.js";
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var Sender = (() => {
+
+    var BaseCommunicator = getBaseCommunicator();
 
     function* bitGenerator() {
         var i=0;
@@ -64,7 +66,7 @@ export var Sender = (() => {
 
     function sendPolarizationsToChannel(channel) {
         if(BaseCommunicator.isValidChannel(channel)){
-            channel.PhotonPolarizations = BaseCommunicator.photonPolarizations;
+            channel.PhotonPolarizations = BaseCommunicator.photonPolarizations.slice(0);
         }
     }
 
