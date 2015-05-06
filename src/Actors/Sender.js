@@ -2,17 +2,18 @@ require("babel/polyfill");
 
 import {getPhoton} from "../Messages/Photon.js"
 import {getBaseCommunicator} from "./BaseCommunicator.js";
-import {PhotonPolarizationsSize} from "../Config/AppConfig.js";
+import {PhotonsSize} from "../Config/AppConfig.js";
 import {Degrees} from "../Constants/Polarizations.js";
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
-export var Sender = (() => {
+export var getSender = (() => {
 
     var BaseCommunicator = getBaseCommunicator();
+    var randomBits = [];
 
     function* bitGenerator() {
         var i=0;
-        while(i<PhotonPolarizationsSize){
+        while(i<PhotonsSize){
             i++;
             yield Math.floor(Math.random() * (2));
         }
@@ -28,6 +29,10 @@ export var Sender = (() => {
                 this.randomBits.push(i);
             }
         }
+    }
+
+    function generateRandomBasis(){
+        BaseCommunicator.randomBasis = BaseCommunicator.generateRandomBasis();
     }
 
     function calculatePolarization(bit, basis) {
@@ -50,34 +55,35 @@ export var Sender = (() => {
     }
 
     function calculatePolarizations() {
-        if (this.randomBits === undefined || this.randomBasis === undefined) {
+        if (this.randomBits === undefined || BaseCommunicator.randomBasis === undefined) {
             throw 'Sender.js - calculatePolarizations() - randomBits || randomBasis not generated.';
         }
-        if (this.randomBits.length !== this.randomBasis.length) {
+        if (this.randomBits.length !== BaseCommunicator.randomBasis.length) {
             throw 'Sender.js - calculatePolarizations() - Number of bits is not same as number of basis.';
         }
         for (var i = 0; i < this.randomBits.length; i++) {
             var photon = getPhoton();
-            var polarization = calculatePolarization(this.randomBits[i], this.randomBasis[i]);
+            var polarization = calculatePolarization(this.randomBits[i], BaseCommunicator.randomBasis[i]);
             photon.setState(polarization);
-            photon.setBasis(this.randomBasis[i]);
-            BaseCommunicator.photonPolarizations.push(photon);
+            photon.setBasis(BaseCommunicator.randomBasis[i]);
+            BaseCommunicator.photons.push(photon);
         }
     }
 
-    function sendPolarizationsToChannel(channel) {
+    function sendPhotonsToChannel(channel) {
         if(BaseCommunicator.isValidChannel(channel)){
-            channel.PhotonPolarizations = BaseCommunicator.photonPolarizations.slice(0);
+            channel.Photons = BaseCommunicator.photons.slice(0);
         }
     }
 
     return {
+        randomBits: randomBits,
         generateRandomBits: generateRandomBits,
-        generateRandomBasis: BaseCommunicator.generateRandomBasis,
+        generateRandomBasis: generateRandomBasis,
         calculatePolarizations: calculatePolarizations,
-        sendPolarizationsToChannel: sendPolarizationsToChannel,
+        sendPhotonsToChannel: sendPhotonsToChannel,
         sendBasisToChannel: BaseCommunicator.sendBasisToChannel,
         readBasisFromChannel: BaseCommunicator.readBasisFromChannel
     };
 
-})();
+});

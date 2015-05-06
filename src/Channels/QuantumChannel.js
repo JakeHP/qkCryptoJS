@@ -1,10 +1,10 @@
 export var QuantumChannel = (function () {
 
-    var PhotonPolarizations = [];
+    var Photons = [];
     var BasisUsed = [];
 
     return {
-        PhotonPolarizations: PhotonPolarizations,
+        Photons: Photons,
         BasisUsed: BasisUsed
     };
 
