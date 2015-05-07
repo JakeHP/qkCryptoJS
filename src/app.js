@@ -14,10 +14,8 @@ Sender.sendPhotonsToChannel(QuantumChannel);
 Receiver.generateRandomBasis();
 Receiver.measurePhotonsFromChannel(QuantumChannel);
 
-console.log(Receiver.measuredPolarizations);
+Sender.sendBasisToChannel(QuantumChannel);
+Receiver.readBasisFromChannel(QuantumChannel);
 
-//Sender.sendBasisToChannel(QuantumChannel);
-//Receiver.readBasisFromChannel(QuantumChannel);
-
-//Receiver.sendBasisToChannel();
-//Sender.readBasisFromChannel();
+Receiver.sendBasisToChannel(QuantumChannel);
+Sender.readBasisFromChannel(QuantumChannel);

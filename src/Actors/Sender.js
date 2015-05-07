@@ -31,10 +31,6 @@ export var getSender = (() => {
         }
     }
 
-    function generateRandomBasis(){
-        BaseCommunicator.randomBasis = BaseCommunicator.generateRandomBasis();
-    }
-
     function calculatePolarization(bit, basis) {
         if((bit !== 0 && bit !== 1) || (basis !== Diagonal && basis !== Rectangular)){
             throw `Sender.js - calculatePolarization() - Invalid parameters. Bit: ${bit} Basis: ${basis}`;
@@ -76,14 +72,23 @@ export var getSender = (() => {
         }
     }
 
+    function generateRandomBasis(){
+        BaseCommunicator.randomBasis = BaseCommunicator.generateRandomBasis();
+    }
+    function sendBasisToChannel(channel){
+        BaseCommunicator.sendBasisToChannel(channel);
+    }
+    function readBasisFromChannel(channel){
+        BaseCommunicator.readBasisFromChannel(channel);
+    }
+
     return {
-        randomBits: randomBits,
         generateRandomBits: generateRandomBits,
         generateRandomBasis: generateRandomBasis,
         calculatePolarizations: calculatePolarizations,
         sendPhotonsToChannel: sendPhotonsToChannel,
-        sendBasisToChannel: BaseCommunicator.sendBasisToChannel,
-        readBasisFromChannel: BaseCommunicator.readBasisFromChannel
+        sendBasisToChannel: sendBasisToChannel,
+        readBasisFromChannel: readBasisFromChannel
     };
 
 });

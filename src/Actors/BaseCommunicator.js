@@ -19,16 +19,15 @@ export var getBaseCommunicator = (() => {
     }
 
     function generateRandomBasis(){
-        var randomBasis = [];
+        this.randomBasis = [];
         var gen = basisGenerator();
         var i = gen.next().value;
         while(i !== undefined){
             i = gen.next().value;
             if(i !== undefined){
-                randomBasis.push(i);
+                this.randomBasis.push(i);
             }
         }
-        return randomBasis;
     }
 
     function isValidChannel(channel){
@@ -44,10 +43,22 @@ export var getBaseCommunicator = (() => {
         }
     }
 
-    function sendBasisToChannel(basis, channel){
+    function sendBasisToChannel(channel){
         if(isValidChannel(channel)){
-            channel.BasisUsed = basis.slice(0);
+            channel.BasisUsed = this.randomBasis.slice(0);
         }
+    }
+
+    function dropInvalidPolarizations(){
+        //TODO
+    }
+
+    function generateSharedKey(){
+        //TODO
+    }
+
+    function isSharedKeySecure(){
+        //TODO
     }
 
     return {
