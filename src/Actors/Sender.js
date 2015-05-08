@@ -73,7 +73,7 @@ export var getSender = (() => {
     }
 
     function generateRandomBasis(){
-        BaseCommunicator.randomBasis = BaseCommunicator.generateRandomBasis();
+        BaseCommunicator.generateRandomBasis();
     }
     function sendBasisToChannel(channel){
         BaseCommunicator.sendBasisToChannel(channel);

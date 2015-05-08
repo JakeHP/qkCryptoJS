@@ -49,18 +49,6 @@ export var getBaseCommunicator = (() => {
         }
     }
 
-    function dropInvalidPolarizations(){
-        //TODO
-    }
-
-    function generateSharedKey(){
-        //TODO
-    }
-
-    function isSharedKeySecure(){
-        //TODO
-    }
-
     return {
         photons: photons,
         randomBasis: randomBasis,

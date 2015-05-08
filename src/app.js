@@ -19,3 +19,8 @@ Receiver.readBasisFromChannel(QuantumChannel);
 
 Receiver.sendBasisToChannel(QuantumChannel);
 Sender.readBasisFromChannel(QuantumChannel);
+
+Receiver.generateSharedKey();
+
+console.log(Receiver.getSharedKey());
+console.log(Receiver.getSharedKey().length);
