@@ -72,6 +72,22 @@ export var getSender = (() => {
         }
     }
 
+    function generateSharedKey(){
+        if(BaseCommunicator.randomBasis.length !== BaseCommunicator.otherBasis.length){
+            throw "Sender.js - generateSharedKey() - Length of random basis and other basis are not equal.";
+        }
+        if(this.randomBits.length !== BaseCommunicator.randomBasis.length){
+            throw "Sender.js - generateSharedKey() - Length of random bits and random basis are not equal.";
+        }
+        for(var i=0; i<this.randomBits.length; i++){
+            var basis = BaseCommunicator.randomBasis[i];
+            var otherBasis = BaseCommunicator.otherBasis[i];
+            if(basis === otherBasis){
+                BaseCommunicator.sharedKey.push(this.randomBits[i]);
+            }
+        }
+    }
+
     function generateRandomBasis(){
         BaseCommunicator.generateRandomBasis();
     }
@@ -81,6 +97,9 @@ export var getSender = (() => {
     function readBasisFromChannel(channel){
         BaseCommunicator.readBasisFromChannel(channel);
     }
+    function getSharedKey(){
+        return BaseCommunicator.sharedKey;
+    }
 
     return {
         generateRandomBits: generateRandomBits,
@@ -88,7 +107,9 @@ export var getSender = (() => {
         calculatePolarizations: calculatePolarizations,
         sendPhotonsToChannel: sendPhotonsToChannel,
         sendBasisToChannel: sendBasisToChannel,
-        readBasisFromChannel: readBasisFromChannel
+        readBasisFromChannel: readBasisFromChannel,
+        generateSharedKey: generateSharedKey,
+        getSharedKey: getSharedKey
     };
 
 });
