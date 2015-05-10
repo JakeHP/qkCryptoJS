@@ -8,69 +8,69 @@ import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var getReceiver = (() => {
 
-    var BaseCommunicator = getBaseCommunicator();
-    var measuredPolarizations = [];
+    var BaseCommunicator = getBaseCommunicator(),
+        measuredPolarizations = [];
 
     function calculateBit(basis, polarization) {
-        if(basis !== Diagonal && basis !== Rectangular){
+        if (basis !== Diagonal && basis !== Rectangular) {
             throw `Receiver.js - calculateBit() - Invalid parameters. Basis: ${basis} Polarization: ${polarization}`;
         }
-        if(basis === Rectangular){
-            if(polarization === Degrees.Zero){
+        if (basis === Rectangular) {
+            if (polarization === Degrees.Zero) {
                 return 0;
-            }else{
+            } else {
                 return 1;
             }
-        }else{
-            if(polarization === Degrees.FortyFive){
+        }else {
+            if (polarization === Degrees.FortyFive) {
                 return 0;
-            }else{
+            } else {
                 return 1;
             }
         }
     }
 
-    function measurePhotonsFromChannel(channel){
-        if(BaseCommunicator.isValidChannel(channel)){
+    function measurePhotonsFromChannel(channel) {
+        if (BaseCommunicator.isValidChannel(channel)) {
             this.measuredPolarizations = [];
             BaseCommunicator.photons = channel.Photons.slice(0);
-            if(BaseCommunicator.photons.length === BaseCommunicator.randomBasis.length){
-                for(var i=0; i<BaseCommunicator.photons.length; i++){
+            if (BaseCommunicator.photons.length === BaseCommunicator.randomBasis.length) {
+                for (var i = 0; i < BaseCommunicator.photons.length; i++) {
                     var basis = BaseCommunicator.randomBasis[i];
                     this.measuredPolarizations[i] = BaseCommunicator.photons[i].measure(basis);
                 }
-            }else{
+            } else {
                 throw "Receiver.js - measurePolarizationsFromChannel() - Length of sender polars is not same as receiver random basis.";
             }
         }
     }
 
-    function generateSharedKey(){
-        if(BaseCommunicator.randomBasis.length !== BaseCommunicator.otherBasis.length){
+    function generateSharedKey() {
+        if (BaseCommunicator.randomBasis.length !== BaseCommunicator.otherBasis.length) {
             throw "Receiver.js - generateSharedKey() - Length of random basis and other basis are not equal.";
         }
-        if(this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length){
+        if (this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
             throw "Receiver.js - generateSharedKey() - Length of measured polarizations and random basis are not equal.";
         }
-        for(var i=0; i<this.measuredPolarizations.length; i++){
-            var basis = BaseCommunicator.randomBasis[i];
-            var otherBasis = BaseCommunicator.otherBasis[i];
-            if(basis === otherBasis){
+        for (var i = 0; i < this.measuredPolarizations.length; i++) {
+            var basis = BaseCommunicator.randomBasis[i],
+                otherBasis = BaseCommunicator.otherBasis[i];
+            if (basis === otherBasis) {
                 BaseCommunicator.sharedKey.push(calculateBit(basis, this.measuredPolarizations[i]));
             }
         }
     }
 
-    function generateRandomBasis(){
+    function generateRandomBasis() {
         BaseCommunicator.generateRandomBasis();
     }
-    function sendBasisToChannel(channel){
+    function sendBasisToChannel(channel) {
         BaseCommunicator.sendBasisToChannel(channel);
     }
-    function readBasisFromChannel(channel){
+    function readBasisFromChannel(channel) {
         BaseCommunicator.readBasisFromChannel(channel);
     }
-    function getSharedKey(){
+    function getSharedKey() {
         return BaseCommunicator.sharedKey;
     }
 

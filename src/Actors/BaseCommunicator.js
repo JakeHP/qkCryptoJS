@@ -9,6 +9,8 @@ export var getBaseCommunicator = (() => {
     var otherBasis = [];
     var sharedKey = [];
     var photons = [];
+    //var decision = undefined;
+    //var otherDecision = undefined;
 
     function* basisGenerator(){
         var i=0;
@@ -48,6 +50,17 @@ export var getBaseCommunicator = (() => {
             channel.BasisUsed = this.randomBasis.slice(0);
         }
     }
+
+    /*
+    TODO
+    function sendDecisionToChannel(channel){
+
+    }
+
+    function readDecisionFromChannel(channel){
+
+    }
+    */
 
     return {
         photons: photons,
