@@ -30,8 +30,8 @@ Sender.generateSharedKey();
 Sender.decide();
 Receiver.decide();
 
-//Sender.sendDecisionToChannel(QuantumChannel);
-//Receiver.readDecisionFromChannel(QuantumChannel);
+Sender.sendDecisionToChannel(QuantumChannel);
+Receiver.readDecisionFromChannel(QuantumChannel);
 
-//Receiver.sendDecisionToChannel(QuantumChannel);
-//Sender.readDecisionFromChannel(QuantumChannel);
+Receiver.sendDecisionToChannel(QuantumChannel);
+Sender.readDecisionFromChannel(QuantumChannel);

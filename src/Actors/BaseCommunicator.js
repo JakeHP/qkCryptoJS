@@ -9,8 +9,8 @@ export var getBaseCommunicator = (() => {
         otherBasis = [],
         sharedKey = [],
         photons = [],
-        decision = undefined;
-    //var otherDecision = undefined;
+        decision = undefined,
+        otherDecision = undefined;
 
     //jscs:disable
     function* basisGenerator() {
@@ -35,7 +35,12 @@ export var getBaseCommunicator = (() => {
     }
 
     function isValidChannel(channel) {
-        if (channel === undefined || channel.BasisUsed === undefined || channel.Photons === undefined) {
+        if (
+            channel === undefined ||
+            channel.BasisUsed === undefined ||
+            channel.Photons === undefined ||
+            channel.Decision === undefined
+        ) {
             throw `BaseCommunicator.js - isValidChannel() - Invalid channel provided.`;
         }
         return true;
@@ -60,16 +65,17 @@ export var getBaseCommunicator = (() => {
         this.decision = (this.sharedKey.length >= MinSharedKeyLength);
     }
 
-    /*
-    TODO
-    function sendDecisionToChannel(channel){
-
+    function sendDecisionToChannel(channel) {
+        if (isValidChannel(channel)) {
+            channel.Decision = this.decision;
+        }
     }
 
-    function readDecisionFromChannel(channel){
-
+    function readDecisionFromChannel(channel) {
+        if (isValidChannel(channel)) {
+            this.otherDecision = channel.Decision;
+        }
     }
-    */
 
     return {
         photons: photons,
@@ -80,7 +86,9 @@ export var getBaseCommunicator = (() => {
         generateRandomBasis: generateRandomBasis,
         readBasisFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
-        decide: decide
+        decide: decide,
+        sendDecisionToChannel: sendDecisionToChannel,
+        readDecisionFromChannel: readDecisionFromChannel
     };
 
 });

@@ -1,11 +1,13 @@
 export var QuantumChannel = (function () {
 
     var Photons = [],
-        BasisUsed = [];
+        BasisUsed = [],
+        Decision = false;
 
     return {
         Photons: Photons,
-        BasisUsed: BasisUsed
+        BasisUsed: BasisUsed,
+        Decision: Decision
     };
 
 })();

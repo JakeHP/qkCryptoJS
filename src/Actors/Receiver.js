@@ -61,6 +61,7 @@ export var getReceiver = (() => {
         }
     }
 
+    /* Base Calls */
     function generateRandomBasis() {
         BaseCommunicator.generateRandomBasis();
     }
@@ -73,6 +74,12 @@ export var getReceiver = (() => {
     function decide() {
         BaseCommunicator.decide();
     }
+    function sendDecisionToChannel(channel) {
+        BaseCommunicator.sendDecisionToChannel(channel);
+    }
+    function readDecisionToChannel(channel) {
+        BaseCommunicator.readDecisionToChannel(channel);
+    }
 
     return {
         measuredPolarizations: measuredPolarizations,
@@ -81,7 +88,9 @@ export var getReceiver = (() => {
         sendBasisToChannel: sendBasisToChannel,
         readBasisFromChannel: readBasisFromChannel,
         generateSharedKey: generateSharedKey,
-        decide: decide
+        decide: decide,
+        sendDecisionToChannel: sendDecisionToChannel,
+        readDecisionToChannel: readDecisionToChannel
     };
 
 });
