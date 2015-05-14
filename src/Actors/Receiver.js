@@ -40,17 +40,17 @@ export var getReceiver = (() => {
                     this.measuredPolarizations[i] = BaseCommunicator.photons[i].measure(basis);
                 }
             } else {
-                throw "Receiver.js - measurePolarizationsFromChannel() - Length of sender polars is not same as receiver random basis.";
+                throw `Receiver.js - measurePolarizationsFromChannel() - Length of sender polars is not same as receiver random basis.`;
             }
         }
     }
 
     function generateSharedKey() {
         if (BaseCommunicator.randomBasis.length !== BaseCommunicator.otherBasis.length) {
-            throw "Receiver.js - generateSharedKey() - Length of random basis and other basis are not equal.";
+            throw `Receiver.js - generateSharedKey() - Length of random basis and other basis are not equal.`;
         }
         if (this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
-            throw "Receiver.js - generateSharedKey() - Length of measured polarizations and random basis are not equal.";
+            throw `Receiver.js - generateSharedKey() - Length of measured polarizations and random basis are not equal.`;
         }
         for (var i = 0; i < this.measuredPolarizations.length; i++) {
             var basis = BaseCommunicator.randomBasis[i],
@@ -70,8 +70,8 @@ export var getReceiver = (() => {
     function readBasisFromChannel(channel) {
         BaseCommunicator.readBasisFromChannel(channel);
     }
-    function getSharedKey() {
-        return BaseCommunicator.sharedKey;
+    function decide() {
+        BaseCommunicator.decide();
     }
 
     return {
@@ -81,7 +81,7 @@ export var getReceiver = (() => {
         sendBasisToChannel: sendBasisToChannel,
         readBasisFromChannel: readBasisFromChannel,
         generateSharedKey: generateSharedKey,
-        getSharedKey: getSharedKey
+        decide: decide
     };
 
 });

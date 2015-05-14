@@ -1,15 +1,15 @@
 require("babel/polyfill");
 
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
-import {PhotonsSize} from "../Config/AppConfig.js";
+import {PhotonsSize, MinSharedKeyLength} from "../Config/AppConfig.js";
 
 export var getBaseCommunicator = (() => {
 
     var randomBasis = [],
         otherBasis = [],
         sharedKey = [],
-        photons = [];
-    //decision = undefined;
+        photons = [],
+        decision = undefined;
     //var otherDecision = undefined;
 
     //jscs:disable
@@ -36,7 +36,7 @@ export var getBaseCommunicator = (() => {
 
     function isValidChannel(channel) {
         if (channel === undefined || channel.BasisUsed === undefined || channel.Photons === undefined) {
-            throw 'BaseCommunicator.js - isValidChannel() - Invalid channel provided.';
+            throw `BaseCommunicator.js - isValidChannel() - Invalid channel provided.`;
         }
         return true;
     }
@@ -51,6 +51,13 @@ export var getBaseCommunicator = (() => {
         if (isValidChannel(channel)) {
             channel.BasisUsed = this.randomBasis.slice(0);
         }
+    }
+
+    function decide() {
+        if (this.sharedKey === undefined || this.sharedKey.length <= 0) {
+            throw `BaseCommunicator.js - decide() - Shared key is invalid.`;
+        }
+        this.decision = (this.sharedKey.length >= MinSharedKeyLength);
     }
 
     /*
@@ -70,9 +77,10 @@ export var getBaseCommunicator = (() => {
         otherBasis: otherBasis,
         sharedKey: sharedKey,
         isValidChannel: isValidChannel,
+        generateRandomBasis: generateRandomBasis,
         readBasisFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
-        generateRandomBasis: generateRandomBasis
+        decide: decide
     };
 
 });

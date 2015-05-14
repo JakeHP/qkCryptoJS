@@ -90,6 +90,7 @@ export var getSender = (() => {
         }
     }
 
+    /* Base Calls */
     function generateRandomBasis() {
         BaseCommunicator.generateRandomBasis();
     }
@@ -99,8 +100,8 @@ export var getSender = (() => {
     function readBasisFromChannel(channel) {
         BaseCommunicator.readBasisFromChannel(channel);
     }
-    function getSharedKey() {
-        return BaseCommunicator.sharedKey;
+    function decide() {
+        BaseCommunicator.decide();
     }
 
     return {
@@ -111,7 +112,7 @@ export var getSender = (() => {
         sendBasisToChannel: sendBasisToChannel,
         readBasisFromChannel: readBasisFromChannel,
         generateSharedKey: generateSharedKey,
-        getSharedKey: getSharedKey
+        decide: decide
     };
 
 });
