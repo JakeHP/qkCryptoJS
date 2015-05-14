@@ -1,0 +1,7 @@
+export var getAttacker = (() => {
+
+    return {
+
+    };
+
+});
