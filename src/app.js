@@ -13,7 +13,7 @@ Sender.generateRandomBasis();
 Sender.calculatePolarizations();
 Sender.sendPhotonsToChannel(QuantumChannel);
 
-//Attacker.interceptPhotonsFromChannel(QuantumChannel);
+Attacker.interceptPhotonsFromChannel(QuantumChannel);
 
 Receiver.generateRandomBasis();
 Receiver.measurePhotonsFromChannel(QuantumChannel);

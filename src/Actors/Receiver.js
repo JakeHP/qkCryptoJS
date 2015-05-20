@@ -80,6 +80,9 @@ export var getReceiver = (() => {
     function readDecisionFromChannel(channel) {
         BaseCommunicator.readDecisionFromChannel(channel);
     }
+    function getDecision() {
+        return BaseCommunicator.getDecision();
+    }
 
     return {
         measuredPolarizations: measuredPolarizations,
@@ -90,7 +93,8 @@ export var getReceiver = (() => {
         generateSharedKey: generateSharedKey,
         decide: decide,
         sendDecisionToChannel: sendDecisionToChannel,
-        readDecisionFromChannel: readDecisionFromChannel
+        readDecisionFromChannel: readDecisionFromChannel,
+        getDecision: getDecision
     };
 
 });

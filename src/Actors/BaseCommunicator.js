@@ -77,6 +77,10 @@ export var getBaseCommunicator = (() => {
         }
     }
 
+    function getDecision() {
+        return this.decision;
+    }
+
     return {
         photons: photons,
         randomBasis: randomBasis,
@@ -88,7 +92,8 @@ export var getBaseCommunicator = (() => {
         sendBasisToChannel: sendBasisToChannel,
         decide: decide,
         sendDecisionToChannel: sendDecisionToChannel,
-        readDecisionFromChannel: readDecisionFromChannel
+        readDecisionFromChannel: readDecisionFromChannel,
+        getDecision: getDecision
     };
 
 });

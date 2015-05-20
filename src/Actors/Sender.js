@@ -109,6 +109,9 @@ export var getSender = (() => {
     function readDecisionFromChannel(channel) {
         BaseCommunicator.readDecisionFromChannel(channel);
     }
+    function getDecision() {
+        return BaseCommunicator.getDecision();
+    }
 
     return {
         generateRandomBits: generateRandomBits,
@@ -120,7 +123,8 @@ export var getSender = (() => {
         generateSharedKey: generateSharedKey,
         decide: decide,
         sendDecisionToChannel: sendDecisionToChannel,
-        readDecisionFromChannel: readDecisionFromChannel
+        readDecisionFromChannel: readDecisionFromChannel,
+        getDecision: getDecision
     };
 
 });
