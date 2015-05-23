@@ -19,15 +19,18 @@ Receiver.generateRandomBasis();
 Receiver.measurePhotonsFromChannel(QuantumChannel);
 
 Sender.sendBasisToChannel(QuantumChannel);
-//Attacker.interceptSenderBasisFromChannel(QuantumChannel);
+Attacker.interceptSenderBasisFromChannel(QuantumChannel);
 Receiver.readBasisFromChannel(QuantumChannel);
 
 Receiver.sendBasisToChannel(QuantumChannel);
-//Attacker.interceptReceiverBasisFromChannel(QuantumChannel);
+Attacker.interceptReceiverBasisFromChannel(QuantumChannel);
 Sender.readBasisFromChannel(QuantumChannel);
 
 Receiver.generateSharedKey();
+//Attacker.generateSharedKey();
 Sender.generateSharedKey();
+
+//See if Attacker key is same as Sender or Receiver.
 
 Sender.decide();
 Receiver.decide();

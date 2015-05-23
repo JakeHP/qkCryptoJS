@@ -3,7 +3,9 @@ import {getBaseCommunicator} from "./BaseCommunicator.js";
 export var getAttacker = (() => {
 
     var BaseCommunicator = getBaseCommunicator(),
-        measuredPolarizations = [];
+        measuredPolarizations = [],
+        senderBasis = [],
+        receiverBasis = [];
 
     function interceptPhotonsFromChannel(channel) {
         if (BaseCommunicator.isValidChannel(channel)) {
@@ -28,6 +30,22 @@ export var getAttacker = (() => {
         }
     }
 
+    function interceptSenderBasisFromChannel(channel) {
+        if (BaseCommunicator.isValidChannel(channel)) {
+            this.senderBasis = channel.BasisUsed.slice(0);
+        }
+    }
+
+    function interceptReceiverBasisFromChannel(channel) {
+        if (BaseCommunicator.isValidChannel(channel)) {
+            this.receiverBasis = channel.BasisUsed.slice(0);
+        }
+    }
+
+    function generateSharedKey() {
+        // TODO
+    }
+
     /* Base Calls */
     function generateRandomBasis() {
         BaseCommunicator.generateRandomBasis();
@@ -36,7 +54,9 @@ export var getAttacker = (() => {
     return {
         generateRandomBasis: generateRandomBasis,
         interceptPhotonsFromChannel: interceptPhotonsFromChannel,
-        measurePhotonsFromChannel: measurePhotonsFromChannel
+        measurePhotonsFromChannel: measurePhotonsFromChannel,
+        interceptSenderBasisFromChannel: interceptSenderBasisFromChannel,
+        interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel
     };
 
 });
