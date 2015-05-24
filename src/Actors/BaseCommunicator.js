@@ -77,23 +77,19 @@ export var getBaseCommunicator = (() => {
         }
     }
 
-    function getDecision() {
-        return this.decision;
-    }
-
     return {
         photons: photons,
         randomBasis: randomBasis,
         otherBasis: otherBasis,
         sharedKey: sharedKey,
+        decision: decision,
         isValidChannel: isValidChannel,
         generateRandomBasis: generateRandomBasis,
         readBasisFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
         decide: decide,
         sendDecisionToChannel: sendDecisionToChannel,
-        readDecisionFromChannel: readDecisionFromChannel,
-        getDecision: getDecision
+        readDecisionFromChannel: readDecisionFromChannel
     };
 
 });

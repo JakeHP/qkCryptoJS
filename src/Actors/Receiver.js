@@ -81,7 +81,10 @@ export var getReceiver = (() => {
         BaseCommunicator.readDecisionFromChannel(channel);
     }
     function getDecision() {
-        return BaseCommunicator.getDecision();
+        return BaseCommunicator.decision;
+    }
+    function getSharedKey() {
+        return BaseCommunicator.sharedKey;
     }
 
     return {
@@ -94,7 +97,8 @@ export var getReceiver = (() => {
         decide: decide,
         sendDecisionToChannel: sendDecisionToChannel,
         readDecisionFromChannel: readDecisionFromChannel,
-        getDecision: getDecision
+        getDecision: getDecision,
+        getSharedKey: getSharedKey
     };
 
 });

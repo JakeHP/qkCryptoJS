@@ -1,4 +1,6 @@
 import {getBaseCommunicator} from "./BaseCommunicator.js";
+import {Degrees} from "../Constants/Polarizations.js";
+import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var getAttacker = (() => {
 
@@ -6,6 +8,25 @@ export var getAttacker = (() => {
         measuredPolarizations = [],
         senderBasis = [],
         receiverBasis = [];
+
+    function calculateBit(basis, polarization) {
+        if (basis !== Diagonal && basis !== Rectangular) {
+            throw `Attacker.js - calculateBit() - Invalid parameters. Basis: ${basis} Polarization: ${polarization}`;
+        }
+        if (basis === Rectangular) {
+            if (polarization === Degrees.Zero) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }else {
+            if (polarization === Degrees.FortyFive) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+    }
 
     function interceptPhotonsFromChannel(channel) {
         if (BaseCommunicator.isValidChannel(channel)) {
@@ -43,12 +64,31 @@ export var getAttacker = (() => {
     }
 
     function generateSharedKey() {
-        // TODO
+        if (this.senderBasis.length !== this.receiverBasis.length) {
+            throw "Attacker.js - generateSharedKey() - Length of sniffed basis do not match.";
+        }
+        if (BaseCommunicator.randomBasis.length !== this.senderBasis.length) {
+            throw "Attacker.js - generateSharedKey() - Length of generated random basis does not match sniffed basis.";
+        }
+        if (this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
+            throw "Attacker.js - generateSharedKey() - Length of measured polarizations does not match random basis.";
+        }
+        for (var i = 0; i < this.measuredPolarizations.length; i++) {
+            var senderBasis = this.senderBasis[i],
+                receiverBasis = this.receiverBasis[i];
+            if (senderBasis === receiverBasis) {
+                BaseCommunicator.sharedKey.push(calculateBit(senderBasis, this.measuredPolarizations[i]));
+            }
+        }
     }
+
 
     /* Base Calls */
     function generateRandomBasis() {
         BaseCommunicator.generateRandomBasis();
+    }
+    function getSharedKey() {
+        return BaseCommunicator.sharedKey;
     }
 
     return {
@@ -56,7 +96,9 @@ export var getAttacker = (() => {
         interceptPhotonsFromChannel: interceptPhotonsFromChannel,
         measurePhotonsFromChannel: measurePhotonsFromChannel,
         interceptSenderBasisFromChannel: interceptSenderBasisFromChannel,
-        interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel
+        interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel,
+        generateSharedKey: generateSharedKey,
+        getSharedKey: getSharedKey
     };
 
 });

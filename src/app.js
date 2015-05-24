@@ -3,8 +3,8 @@ import {getSender} from "./Actors/Sender.js";
 import {getReceiver} from "./Actors/Receiver.js";
 import {getAttacker} from "./Actors/Attacker.js";
 import {QuantumChannel} from "./Channels/QuantumChannel.js"
-
-var Sender = getSender(),
+var _ = require("underscore"),
+    Sender = getSender(),
     Receiver = getReceiver(),
     Attacker = getAttacker();
 
@@ -27,10 +27,8 @@ Attacker.interceptReceiverBasisFromChannel(QuantumChannel);
 Sender.readBasisFromChannel(QuantumChannel);
 
 Receiver.generateSharedKey();
-//Attacker.generateSharedKey();
+Attacker.generateSharedKey();
 Sender.generateSharedKey();
-
-//See if Attacker key is same as Sender or Receiver.
 
 Sender.decide();
 Receiver.decide();
