@@ -1,8 +1,8 @@
 export var QuantumChannel = (function () {
 
-    var Photons = [],
-        BasisUsed = [],
-        Decision = false;
+    var Photons = [];
+    var BasisUsed = [];
+    var Decision = false;
 
     return {
         Photons: Photons,

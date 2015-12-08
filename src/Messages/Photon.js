@@ -3,8 +3,8 @@ import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var getPhoton = (() => {
 
-    var PolarizationState = undefined,
-        Basis = undefined;
+    var PolarizationState = undefined;
+    var Basis = undefined;
 
     function isValidState(state) {
         for (var prop in Degrees) {

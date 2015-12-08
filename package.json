@@ -11,11 +11,12 @@
   "dependencies": {
     "babel": "^5.8.34",
     "babelify": "^6.1.1",
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
     "mocha": "^2.3.4",
-    "underscore": "^1.8.3",
     "watchify": "^3.6.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "watchify src/app.js -o dist/app.js -v -d"
   },

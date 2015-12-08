@@ -2,11 +2,11 @@ import * as AppConfig from "./Config/AppConfig";
 import {getSender} from "./Actors/Sender.js";
 import {getReceiver} from "./Actors/Receiver.js";
 import {getAttacker} from "./Actors/Attacker.js";
-import {QuantumChannel} from "./Channels/QuantumChannel.js"
-var _ = require("underscore"),
-    Sender = getSender(),
-    Receiver = getReceiver(),
-    Attacker = getAttacker();
+import {QuantumChannel} from "./Channels/QuantumChannel.js";
+
+var Sender = getSender();
+var Receiver = getReceiver();
+var Attacker = getAttacker();
 
 Sender.generateRandomBits();
 Sender.generateRandomBasis();

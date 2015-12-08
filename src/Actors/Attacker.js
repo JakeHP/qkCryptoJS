@@ -4,10 +4,10 @@ import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var getAttacker = (() => {
 
-    var BaseCommunicator = getBaseCommunicator(),
-        measuredPolarizations = [],
-        senderBasis = [],
-        receiverBasis = [];
+    var BaseCommunicator = getBaseCommunicator();
+    var measuredPolarizations = [];
+    var senderBasis = [];
+    var receiverBasis = [];
 
     function calculateBit(basis, polarization) {
         if (basis !== Diagonal && basis !== Rectangular) {

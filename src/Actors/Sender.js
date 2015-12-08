@@ -8,8 +8,8 @@ import {Diagonal, Rectangular} from "../Constants/Bases.js";
 
 export var getSender = (() => {
 
-    var BaseCommunicator = getBaseCommunicator(),
-        randomBits = [];
+    var BaseCommunicator = getBaseCommunicator();
+    var randomBits = [];
 
     //jscs:disable
     function* bitGenerator() {

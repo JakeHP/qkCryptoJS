@@ -5,12 +5,12 @@ import {PhotonsSize, MinSharedKeyLength} from "../Config/AppConfig.js";
 
 export var getBaseCommunicator = (() => {
 
-    var randomBasis = [],
-        otherBasis = [],
-        sharedKey = [],
-        photons = [],
-        decision = undefined,
-        otherDecision = undefined;
+    var randomBasis = [];
+    var otherBasis = [];
+    var sharedKey = [];
+    var photons = [];
+    var decision = undefined;
+    var otherDecision = undefined;
 
     //jscs:disable
     function* basisGenerator() {
