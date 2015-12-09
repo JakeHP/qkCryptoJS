@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import * as AppConfig from "./Config/AppConfig";
 import {getSender} from "./Actors/Sender.js";
 import {getReceiver} from "./Actors/Receiver.js";

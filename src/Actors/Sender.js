@@ -1,5 +1,3 @@
-require("babel/polyfill");
-
 import {getPhoton} from "../Messages/Photon.js"
 import {getBaseCommunicator} from "./BaseCommunicator.js";
 import {PhotonsSize} from "../Config/AppConfig.js";

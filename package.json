@@ -1,6 +1,6 @@
 {
   "name": "qkCryptoJS",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Quantum Key Distribution system, based on BB84, using emulated photons.",
   "author": "Jake Prather <JakeHP@Zoho.com>",
   "main": "src/app.js",
@@ -9,21 +9,20 @@
     "url": "https://github.com/jakehp/qkCryptoJS"
   },
   "dependencies": {
-    "babel": "^5.8.34",
-    "babelify": "^6.1.1",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "chai": "^3.4.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
     "gulp-jscs": "^3.0.2",
+    "gulp-mocha": "^2.2.0",
     "mocha": "^2.3.4",
     "watchify": "^3.6.1"
   },
   "scripts": {
-    "start": "watchify src/app.js -o dist/app.js -v -d"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
+    "start": "watchify src/app.js -o app.bundle.js -t [ babelify --presets [ es2015 ] ]"
   },
   "private": true,
   "license": "MIT"

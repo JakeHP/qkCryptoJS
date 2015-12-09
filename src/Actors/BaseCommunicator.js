@@ -1,5 +1,3 @@
-require("babel/polyfill");
-
 import {Diagonal, Rectangular} from "../Constants/Bases.js";
 import {PhotonsSize, MinSharedKeyLength} from "../Config/AppConfig.js";
 
