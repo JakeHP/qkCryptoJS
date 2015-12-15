@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import {getBaseCommunicator} from "../../src/Actors/BaseCommunicator.js";
 const chai = require('chai');
 const assert = chai.assert;
+const expect = chai.expect;
 chai.should();
 
 describe('BaseCommunicator', () => {
@@ -34,6 +35,22 @@ describe('BaseCommunicator', () => {
             assert.isFunction(baseCommunicator.decide, 'decide');
             assert.isFunction(baseCommunicator.sendDecisionToChannel, 'sendDecisionToChannel');
             assert.isFunction(baseCommunicator.readDecisionFromChannel, 'readDecisionFromChannel');
+        });
+    });
+    describe('#isValidChannel', () => {
+        it('should catch invalid channel', () => {
+            expect(baseCommunicator.isValidChannel.bind({}, {})).to.throw(Error);
+        });
+        it('should catch invalid channel (2)', () => {
+            expect(baseCommunicator.isValidChannel.bind({}, {BasisUsed: "abc"})).to.throw(Error);
+        });
+        it('should not throw valid channel', () => {
+            var channel = {
+                BasisUsed: "abc",
+                Photons: "abc",
+                Decision: "abc"
+            };
+            expect(baseCommunicator.isValidChannel.bind({}, channel)).to.not.throw(Error);
         });
     });
 });

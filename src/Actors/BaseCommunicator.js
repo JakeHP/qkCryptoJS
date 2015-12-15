@@ -39,7 +39,7 @@ export var getBaseCommunicator = (() => {
             channel.Photons === undefined ||
             channel.Decision === undefined
         ) {
-            throw `BaseCommunicator.js - isValidChannel() - Invalid channel provided.`;
+            throw new Error("Invalid channel provided.");
         }
         return true;
     }
