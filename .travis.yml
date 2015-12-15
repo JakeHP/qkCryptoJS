@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "4.1"
+  - "4.2"
+before_script:
+  - npm install -g gulp
+install:
+    - npm install
+    - gulp lint

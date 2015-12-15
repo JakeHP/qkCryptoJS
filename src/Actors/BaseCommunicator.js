@@ -81,6 +81,7 @@ export var getBaseCommunicator = (() => {
         otherBasis: otherBasis,
         sharedKey: sharedKey,
         decision: decision,
+        otherDecision: otherDecision,
         isValidChannel: isValidChannel,
         generateRandomBasis: generateRandomBasis,
         readBasisFromChannel: readBasisFromChannel,

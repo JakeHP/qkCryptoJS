@@ -22,7 +22,8 @@
     "watchify": "^3.6.1"
   },
   "scripts": {
-    "start": "watchify src/app.js -o app.bundle.js -t [ babelify --presets [ es2015 ] ]"
+    "start": "watchify src/app.js -o app.bundle.js -t [ babelify --presets [ es2015 ] ]",
+    "test": "gulp test"
   },
   "private": true,
   "license": "MIT"
