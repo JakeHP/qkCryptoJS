@@ -58,7 +58,7 @@ export var getBaseCommunicator = (() => {
 
     function decide() {
         if (this.sharedKey === undefined || this.sharedKey.length <= 0) {
-            throw `BaseCommunicator.js - decide() - Shared key is invalid.`;
+            throw new Error("Shared key is invalid.");
         }
         this.decision = (this.sharedKey.length >= MinSharedKeyLength);
     }

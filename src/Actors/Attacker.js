@@ -11,7 +11,7 @@ export var getAttacker = (() => {
 
     function calculateBit(basis, polarization) {
         if (basis !== Diagonal && basis !== Rectangular) {
-            throw `Attacker.js - calculateBit() - Invalid parameters. Basis: ${basis} Polarization: ${polarization}`;
+            throw new Error(`Invalid parameters. Basis: ${basis} Polarization: ${polarization}`);
         }
         if (basis === Rectangular) {
             if (polarization === Degrees.Zero) {
@@ -34,7 +34,7 @@ export var getAttacker = (() => {
             this.measurePhotonsFromChannel(channel);
             channel.Photons = BaseCommunicator.photons.slice(0);
         } else {
-            throw `Attacker.js - interceptPhotonsFromChannel() - Length of polars in channel is not same as attacker random basis.`;
+            throw new Error('Length of polars in channel is not same as attacker random basis.');
         }
     }
 
@@ -47,7 +47,7 @@ export var getAttacker = (() => {
                 this.measuredPolarizations[i] = BaseCommunicator.photons[i].measure(basis);
             }
         } else {
-            throw `Attacker.js - measurePolarizationsFromChannel() - Length of polars in channel is not same as attacker random basis.`;
+            throw new Error('Length of polars in channel is not same as attacker random basis.');
         }
     }
 
@@ -65,17 +65,17 @@ export var getAttacker = (() => {
 
     function generateSharedKey() {
         if (this.senderBasis.length !== this.receiverBasis.length) {
-            throw "Attacker.js - generateSharedKey() - Length of sniffed basis do not match.";
+            throw new Error('Length of sniffed basis do not match.');
         }
         if (BaseCommunicator.randomBasis.length !== this.senderBasis.length) {
-            throw "Attacker.js - generateSharedKey() - Length of generated random basis does not match sniffed basis.";
+            throw new Error('Length of generated random basis does not match sniffed basis.');
         }
         if (this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
-            throw "Attacker.js - generateSharedKey() - Length of measured polarizations does not match random basis.";
+            throw new Error("Length of measured polarizations does not match random basis.");
         }
         for (var i = 0; i < this.measuredPolarizations.length; i++) {
-            var senderBasis = this.senderBasis[i],
-                receiverBasis = this.receiverBasis[i];
+            var senderBasis = this.senderBasis[i];
+            var receiverBasis = this.receiverBasis[i];
             if (senderBasis === receiverBasis) {
                 BaseCommunicator.sharedKey.push(calculateBit(senderBasis, this.measuredPolarizations[i]));
             }

@@ -11,7 +11,7 @@ export var getReceiver = (() => {
 
     function calculateBit(basis, polarization) {
         if (basis !== Diagonal && basis !== Rectangular) {
-            throw `Receiver.js - calculateBit() - Invalid parameters. Basis: ${basis} Polarization: ${polarization}`;
+            throw new Error(`Invalid parameters. Basis: ${basis} Polarization: ${polarization}`);
         }
         if (basis === Rectangular) {
             if (polarization === Degrees.Zero) {
@@ -38,21 +38,21 @@ export var getReceiver = (() => {
                     this.measuredPolarizations[i] = BaseCommunicator.photons[i].measure(basis);
                 }
             } else {
-                throw `Receiver.js - measurePolarizationsFromChannel() - Length of sender polars is not same as receiver random basis.`;
+                throw new Error('Length of sender polars is not same as receiver random basis.');
             }
         }
     }
 
     function generateSharedKey() {
         if (BaseCommunicator.randomBasis.length !== BaseCommunicator.otherBasis.length) {
-            throw `Receiver.js - generateSharedKey() - Length of random basis and other basis are not equal.`;
+            throw new Error('Length of random basis and other basis are not equal.');
         }
         if (this.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
-            throw `Receiver.js - generateSharedKey() - Length of measured polarizations and random basis are not equal.`;
+            throw new Error('Length of measured polarizations and random basis are not equal.');
         }
         for (var i = 0; i < this.measuredPolarizations.length; i++) {
-            var basis = BaseCommunicator.randomBasis[i],
-                otherBasis = BaseCommunicator.otherBasis[i];
+            var basis = BaseCommunicator.randomBasis[i];
+            var otherBasis = BaseCommunicator.otherBasis[i];
             if (basis === otherBasis) {
                 BaseCommunicator.sharedKey.push(calculateBit(basis, this.measuredPolarizations[i]));
             }
