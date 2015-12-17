@@ -22,8 +22,8 @@ export var getBaseCommunicator = (() => {
 
     function generateRandomBasis() {
         this.randomBasis = [];
-        var gen = basisGenerator(),
-            i = gen.next().value;
+        var gen = basisGenerator();
+        var i = gen.next().value;
         while (i !== undefined) {
             i = gen.next().value;
             if (i !== undefined) {

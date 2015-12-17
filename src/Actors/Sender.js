@@ -21,8 +21,8 @@ export var getSender = (() => {
 
     function generateRandomBits() {
         this.randomBits = [];
-        var gen = bitGenerator(),
-            i = gen.next().value;
+        var gen = bitGenerator();
+        var i = gen.next().value;
         while (i !== undefined) {
             i = gen.next().value;
             if (i !== undefined) {

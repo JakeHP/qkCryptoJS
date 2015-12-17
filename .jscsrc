@@ -1,4 +1,5 @@
 {
+    "esnext": true,
     "requireCurlyBraces": [
         "if",
         "else",
@@ -31,8 +32,8 @@
     "disallowSpacesInFunctionDeclaration": {
         "beforeOpeningRoundBrace": true
     },
+    "disallowMultipleVarDecl": true,
     "requireSpaceBetweenArguments": true,
-    "requireMultipleVarDecl": false,
     "requireBlocksOnNewline": true,
     "disallowEmptyBlocks": true,
     "disallowSpacesInsideArrayBrackets": true,
