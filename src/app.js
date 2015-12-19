@@ -3,11 +3,12 @@ import * as AppConfig from "./Config/AppConfig";
 import {getSender} from "./Actors/Sender.js";
 import {getReceiver} from "./Actors/Receiver.js";
 import {getAttacker} from "./Actors/Attacker.js";
-import {QuantumChannel} from "./Channels/QuantumChannel.js";
+import {getQuantumChannel} from "./Channels/QuantumChannel.js";
 
 var Sender = getSender();
 var Receiver = getReceiver();
 var Attacker = getAttacker();
+var QuantumChannel = getQuantumChannel();
 
 Sender.generateRandomBits();
 Sender.generateRandomBasis();

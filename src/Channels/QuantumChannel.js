@@ -1,4 +1,4 @@
-export var QuantumChannel = (function () {
+export var getQuantumChannel = (() => {
 
     var Photons = [];
     var BasisUsed = [];
@@ -10,4 +10,4 @@ export var QuantumChannel = (function () {
         Decision: Decision
     };
 
-})();
+});

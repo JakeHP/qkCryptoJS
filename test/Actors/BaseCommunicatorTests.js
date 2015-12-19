@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import {getBaseCommunicator} from "../../src/Actors/BaseCommunicator.js";
-import {QuantumChannel} from "../../src/Channels/QuantumChannel.js";
+import {getQuantumChannel} from "../../src/Channels/QuantumChannel.js";
 const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
@@ -40,16 +40,16 @@ describe('BaseCommunicator', () => {
             assert.isFunction(baseCommunicator.readDecisionFromChannel, 'readDecisionFromChannel');
         });
     });
-    describe('#isValidChannel', () => {
-        it('should catch invalid channel', () => {
+    describe('#isValidChannel()', () => {
+        it('- should catch invalid channel', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.isValidChannel.bind({}, {})).to.throw(Error);
         });
-        it('should catch invalid channel (2)', () => {
+        it('- should catch invalid channel (2)', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.isValidChannel.bind({}, {BasisUsed: "abc"})).to.throw(Error);
         });
-        it('should not throw valid channel', () => {
+        it('- should not throw valid channel', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = {
                 BasisUsed: "abc",
@@ -59,17 +59,33 @@ describe('BaseCommunicator', () => {
             expect(baseCommunicator.isValidChannel.bind({}, channel)).to.not.throw(Error);
         });
     });
-    describe('#readBasisFromChannel', () => {
-        it('otherBasis should remain empty when channel is invalid.', () => {
+    describe('#readBasisFromChannel()', () => {
+        it('- otherBasis should remain empty when channel is invalid.', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.readBasisFromChannel.bind({}, { seoifj: "soeifj"})).to.throw(Error);
             expect(baseCommunicator.otherBasis).to.have.length(0);
         });
-        it('otherBasis should adjust to channel basis when channel is valid.', () => {
+        it('- otherBasis should adjust to channel basis when channel is valid.', () => {
             var baseCommunicator = getBaseCommunicator();
-            QuantumChannel.BasisUsed = [0, 1, 3, 4, 5];
-            baseCommunicator.readBasisFromChannel(QuantumChannel);
+            var channel = getQuantumChannel();
+            channel.BasisUsed = [0, 1, 2, 3, 4];
+            baseCommunicator.readBasisFromChannel(channel);
             expect(baseCommunicator.otherBasis).to.have.length(5);
+        });
+    });
+    describe('#sendBasisToChannel()', () => {
+        it('- Channel BasisUsed should remain unchanged when channel is invalid.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            expect(baseCommunicator.sendBasisToChannel.bind({}, {sefoij: "23498"})).to.throw(Error);
+            expect(channel.BasisUsed).to.have.length(0);
+        });
+        it('- Channel BasisUsed should change to randomBasis when channel is valid.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            baseCommunicator.randomBasis = [0, 1, 2, 3, 4];
+            baseCommunicator.sendBasisToChannel(channel);
+            expect(channel.BasisUsed).to.have.length(5);
         });
     });
 });
