@@ -1,5 +1,5 @@
-import {Diagonal, Rectangular} from "../Constants/Bases.js";
-import {PhotonsSize, MinSharedKeyLength} from "../Config/AppConfig.js";
+import { Diagonal, Rectangular } from "../Constants/Bases.js";
+import { PhotonsSize, MinSharedKeyLength } from "../Config/AppConfig.js";
 
 export var getBaseCommunicator = (() => {
 

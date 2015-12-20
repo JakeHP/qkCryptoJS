@@ -1,9 +1,9 @@
 import 'babel-polyfill';
 import * as AppConfig from "./Config/AppConfig";
-import {getSender} from "./Actors/Sender.js";
-import {getReceiver} from "./Actors/Receiver.js";
-import {getAttacker} from "./Actors/Attacker.js";
-import {getQuantumChannel} from "./Channels/QuantumChannel.js";
+import { getSender } from "./Actors/Sender.js";
+import { getReceiver } from "./Actors/Receiver.js";
+import { getAttacker } from "./Actors/Attacker.js";
+import { getQuantumChannel } from "./Channels/QuantumChannel.js";
 
 var Sender = getSender();
 var Receiver = getReceiver();

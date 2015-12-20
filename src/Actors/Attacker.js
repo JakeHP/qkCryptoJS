@@ -1,6 +1,6 @@
-import {getBaseCommunicator} from "./BaseCommunicator.js";
-import {Degrees} from "../Constants/Polarizations.js";
-import {Diagonal, Rectangular} from "../Constants/Bases.js";
+import { getBaseCommunicator } from "./BaseCommunicator.js";
+import { Degrees } from "../Constants/Polarizations.js";
+import { Diagonal, Rectangular } from "../Constants/Bases.js";
 
 export var getAttacker = (() => {
 

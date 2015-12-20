@@ -1,6 +1,7 @@
 import 'babel-polyfill';
-import {getBaseCommunicator} from "../../src/Actors/BaseCommunicator.js";
-import {getQuantumChannel} from "../../src/Channels/QuantumChannel.js";
+import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
+import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
+import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
@@ -86,6 +87,62 @@ describe('BaseCommunicator', () => {
             baseCommunicator.randomBasis = [0, 1, 2, 3, 4];
             baseCommunicator.sendBasisToChannel(channel);
             expect(channel.BasisUsed).to.have.length(5);
+        });
+    });
+    describe('#decide()', () => {
+        it('- Invalid sharedKey should throw error.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            baseCommunicator.sharedKey = [];
+            expect(baseCommunicator.decide.bind({}, {})).to.throw(Error);
+        });
+        it('- Short sharedKey should lead to a false decision.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var i = 0;
+            while (i < MinSharedKeyLength - 1) {
+                baseCommunicator.sharedKey.push(i);
+                i++;
+            };
+            console.log(baseCommunicator.sharedKey.length);
+            baseCommunicator.decide();
+            expect(baseCommunicator.decision).to.be.equal(false);
+        });
+        it('- sharedKey longer than configured MinSharedKeyLength should lead to a true decision.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var i = 0;
+            while (i < MinSharedKeyLength + 10) {
+                baseCommunicator.sharedKey.push(i);
+                i++;
+            };
+            baseCommunicator.decide();
+            expect(baseCommunicator.decision).to.be.equal(true);
+        });
+    });
+    describe('#sendDecisionToChannel()', () => {
+        it('- Sending decision to invalid channel should throw an error.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            expect(baseCommunicator.sendDecisionToChannel.bind({}, {sefoij: "23498"})).to.throw(Error);
+        });
+        it('- Sending decision to valid channel, should store decision in channel.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            baseCommunicator.decision = true;
+            baseCommunicator.sendDecisionToChannel(channel);
+            expect(channel.Decision).to.be.equal(true);
+        });
+    });
+    describe('#readDecisionFromChannel()', () => {
+        it('- Reading decision from invalid channel should throw error.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            expect(baseCommunicator.readDecisionFromChannel.bind({}, { seoifj: "soeifj" })).to.throw(Error);
+            expect(baseCommunicator.otherDecision).to.be.equal(undefined);
+        });
+        it('- Reading decision from valid channel should store decision.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            channel.Decision = true;
+            baseCommunicator.readDecisionFromChannel(channel);
+            expect(baseCommunicator.otherDecision).to.be.equal(true);
         });
     });
 });
