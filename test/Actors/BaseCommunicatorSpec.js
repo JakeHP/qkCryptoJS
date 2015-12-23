@@ -1,11 +1,11 @@
 import 'babel-polyfill';
-import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
-import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
-import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 chai.should();
+import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
+import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
+import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
 describe('BaseCommunicator', () => {
     describe('#props', () => {
