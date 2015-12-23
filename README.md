@@ -1,4 +1,4 @@
-# qkCryptoJS [![Build Status](https://travis-ci.org/Jakehp/qkCryptoJS.svg?branch=master)](https://travis-ci.org/Jakehp/qkCryptoJS)
+# qkCryptoJS [![Build Status](https://travis-ci.org/Jakehp/qkCryptoJS.svg?branch=master)](https://travis-ci.org/Jakehp/qkCryptoJS) [![Coverage Status](https://coveralls.io/repos/Jakehp/qkCryptoJS/badge.svg?branch=master&service=github)](https://coveralls.io/github/Jakehp/qkCryptoJS?branch=master)
 A Quantum Key Distribution system, based on BB84, using emulated photons and channels.
 
 # Build Steps
