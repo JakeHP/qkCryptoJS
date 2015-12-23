@@ -7,7 +7,7 @@ A Quantum Key Distribution system, based on BB84, using emulated photons and cha
 * Command ```npm install```
 * Command ```gulp test```
 * Command ```npm start```
-* Command ```node app.bundle.js```
+* Command ```node sample.compiled.js```
 
 ## Tech Used
 [browserify](http://browserify.org/) - CommonJS Loader/Bundler  

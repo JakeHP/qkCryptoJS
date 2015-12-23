@@ -1,7 +1,10 @@
+require('babel-core/register');
 const gulp = require('gulp');
 const jscs = require('gulp-jscs');
+const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
-const babel = require('gulp-babel');
+const isparta = require('isparta');
+const coveralls = require('gulp-coveralls');
 
 gulp.task('lint', () => {
     return gulp.src('src/**/*.js')
@@ -9,32 +12,27 @@ gulp.task('lint', () => {
         .pipe(jscs.reporter());
 });
 
-gulp.task('test-transpile-test', () => {
-    return gulp.src('test/**/*.js')
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(gulp.dest('distTest/test'));
+gulp.task('coveralls-coverage', function () {
+    return gulp.src(['src/**/*.js'])
+    .pipe(istanbul({
+        instrumenter: isparta.Instrumenter
+    }))
+    .pipe(istanbul.hookRequire());
 });
 
-gulp.task('test-transpile-src', () => {
-    return gulp.src('src/**/*.js')
-		.pipe(babel({
-            presets: ['es2015']
-		}))
-		.pipe(gulp.dest('distTest/src'));
+gulp.task('coveralls-report', ['coveralls-coverage'], function () {
+    return gulp.src(['test/**/*.js'])
+    .pipe(mocha())
+    .pipe(istanbul.writeReports({
+        dir: './coverage',
+        reporters: [
+            'lcovonly'
+        ],
+        reportOpts: { dir: './coverage' }
+    }));
 });
 
-gulp.task(
-    'test',
-    [
-        'test-transpile-test',
-        'test-transpile-src'
-    ],
-    () => {
-        return gulp.src('distTest/test/**/*.js')
-        .pipe(mocha({
-            reporter: 'nyan'
-        }));
-    }
-);
+gulp.task('coveralls', ['coveralls-report'], function () {
+    return gulp.src('./coverage/lcov.info')
+    .pipe(coveralls());
+});

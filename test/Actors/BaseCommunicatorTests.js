@@ -9,7 +9,7 @@ chai.should();
 
 describe('BaseCommunicator', () => {
     describe('#props', () => {
-        it('exist', () => {
+        it('all exist', () => {
             var baseCommunicator = getBaseCommunicator();
             baseCommunicator.should.have.property('randomBasis');
             baseCommunicator.should.have.property('otherBasis');
@@ -42,15 +42,15 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#isValidChannel()', () => {
-        it('- should catch invalid channel', () => {
+        it('should catch invalid channel', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.isValidChannel.bind({}, {})).to.throw(Error);
         });
-        it('- should catch invalid channel (2)', () => {
+        it('should catch invalid channel (2)', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.isValidChannel.bind({}, {BasisUsed: "abc"})).to.throw(Error);
         });
-        it('- should not throw valid channel', () => {
+        it('should not throw valid channel', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = {
                 BasisUsed: "abc",
@@ -61,12 +61,12 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#readBasisFromChannel()', () => {
-        it('- otherBasis should remain empty when channel is invalid.', () => {
+        it('otherBasis should remain empty when channel is invalid.', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.readBasisFromChannel.bind({}, { seoifj: "soeifj"})).to.throw(Error);
             expect(baseCommunicator.otherBasis).to.have.length(0);
         });
-        it('- otherBasis should adjust to channel basis when channel is valid.', () => {
+        it('otherBasis should adjust to channel basis when channel is valid.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             channel.BasisUsed = [0, 1, 2, 3, 4];
@@ -75,13 +75,13 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#sendBasisToChannel()', () => {
-        it('- Channel BasisUsed should remain unchanged when channel is invalid.', () => {
+        it('Channel BasisUsed should remain unchanged when channel is invalid.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             expect(baseCommunicator.sendBasisToChannel.bind({}, {sefoij: "23498"})).to.throw(Error);
             expect(channel.BasisUsed).to.have.length(0);
         });
-        it('- Channel BasisUsed should change to randomBasis when channel is valid.', () => {
+        it('Channel BasisUsed should change to randomBasis when channel is valid.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             baseCommunicator.randomBasis = [0, 1, 2, 3, 4];
@@ -90,23 +90,22 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#decide()', () => {
-        it('- Invalid sharedKey should throw error.', () => {
+        it('Invalid sharedKey should throw error.', () => {
             var baseCommunicator = getBaseCommunicator();
             baseCommunicator.sharedKey = [];
             expect(baseCommunicator.decide.bind({}, {})).to.throw(Error);
         });
-        it('- Short sharedKey should lead to a false decision.', () => {
+        it('Short sharedKey should lead to a false decision.', () => {
             var baseCommunicator = getBaseCommunicator();
             var i = 0;
             while (i < MinSharedKeyLength - 1) {
                 baseCommunicator.sharedKey.push(i);
                 i++;
             };
-            console.log(baseCommunicator.sharedKey.length);
             baseCommunicator.decide();
             expect(baseCommunicator.decision).to.be.equal(false);
         });
-        it('- sharedKey longer than configured MinSharedKeyLength should lead to a true decision.', () => {
+        it('sharedKey longer than configured MinSharedKeyLength should lead to a true decision.', () => {
             var baseCommunicator = getBaseCommunicator();
             var i = 0;
             while (i < MinSharedKeyLength + 10) {
@@ -118,12 +117,12 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#sendDecisionToChannel()', () => {
-        it('- Sending decision to invalid channel should throw an error.', () => {
+        it('Sending decision to invalid channel should throw an error.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             expect(baseCommunicator.sendDecisionToChannel.bind({}, {sefoij: "23498"})).to.throw(Error);
         });
-        it('- Sending decision to valid channel, should store decision in channel.', () => {
+        it('Sending decision to valid channel, should store decision in channel.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             baseCommunicator.decision = true;
@@ -132,12 +131,12 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#readDecisionFromChannel()', () => {
-        it('- Reading decision from invalid channel should throw error.', () => {
+        it('Reading decision from invalid channel should throw error.', () => {
             var baseCommunicator = getBaseCommunicator();
             expect(baseCommunicator.readDecisionFromChannel.bind({}, { seoifj: "soeifj" })).to.throw(Error);
             expect(baseCommunicator.otherDecision).to.be.equal(undefined);
         });
-        it('- Reading decision from valid channel should store decision.', () => {
+        it('Reading decision from valid channel should store decision.', () => {
             var baseCommunicator = getBaseCommunicator();
             var channel = getQuantumChannel();
             channel.Decision = true;

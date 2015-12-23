@@ -9,22 +9,29 @@
     "url": "https://github.com/jakehp/qkCryptoJS"
   },
   "dependencies": {
+    "babel": "^6.3.13",
+    "babel-core": "^6.3.21",
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
-    "chai": "^3.4.1",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
-    "gulp-jscs": "^3.0.2",
     "gulp-mocha": "^2.2.0",
-    "mocha": "^2.3.4",
     "watchify": "^3.6.1"
   },
   "scripts": {
-    "start": "watchify src/app.js -o app.bundle.js -t [ babelify --presets [ es2015 ] ]",
-    "test": "gulp test"
+    "start": "watchify sample.js -o sample.compiled.js -t [ babelify --presets [ es2015 ] ]",
+    "test": ".\\node_modules\\.bin\\mocha test/**/*.js --compilers js:babel-core/register && gulp coveralls"
   },
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "gulp": "^3.9.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-jscs": "^3.0.2",
+    "isparta": "^4.0.0",
+    "mocha": "^2.3.4"
+  }
 }

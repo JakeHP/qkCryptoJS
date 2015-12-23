@@ -2,7 +2,7 @@ import { getPhoton } from "../Messages/Photon.js"
 import { getBaseCommunicator } from "./BaseCommunicator.js";
 import { PhotonsSize } from "../Config/AppConfig.js";
 import { Degrees } from "../Constants/Polarizations.js";
-import { Diagonal , Rectangular } from "../Constants/Bases.js";
+import { Diagonal, Rectangular } from "../Constants/Bases.js";
 
 export var getSender = (() => {
 
