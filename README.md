@@ -9,6 +9,11 @@ A Quantum Key Distribution system, based on BB84, using emulated photons and cha
 * Command ```npm start```
 * Command ```node sample.compiled.js```
 
+# See test coverage in editor
+* Install [wallaby](http://wallabyjs.com/) for your edtior; I recommend [Atom](https://atom.io/).
+* ```Control + Shift + P```, command ```Wallaby: Focus Panel```
+* Click Start button
+
 ## Tech Used
 [browserify](http://browserify.org/) - CommonJS Loader/Bundler  
 [watchify](https://github.com/substack/watchify) - Browserify watcher  
