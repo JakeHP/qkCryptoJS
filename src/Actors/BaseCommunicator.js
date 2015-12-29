@@ -13,7 +13,7 @@ export var getBaseCommunicator = (() => {
     //jscs:disable
     function* basisGenerator() {
         var i = 0;
-        while (i < PhotonsSize) {
+        while (i <= PhotonsSize) {
             i++;
             yield (Math.floor(Math.random() * (2)) === 1) ? Diagonal : Rectangular;
         }

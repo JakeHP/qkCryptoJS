@@ -6,6 +6,7 @@ chai.should();
 import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
+import { Diagonal, Rectangular } from "../../src/Constants/Bases.js";
 
 describe('BaseCommunicator', () => {
     describe('#props', () => {
@@ -58,6 +59,27 @@ describe('BaseCommunicator', () => {
                 Decision: "abc"
             };
             expect(baseCommunicator.isValidChannel.bind({}, channel)).to.not.throw(Error);
+        });
+    });
+    describe('#generateRandomBasis()', () => {
+        it('should generate random basis.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            baseCommunicator.generateRandomBasis();
+            baseCommunicator.randomBasis.should.not.be.equal(undefined);
+            baseCommunicator.randomBasis.should.not.be.equal(null);
+            baseCommunicator.randomBasis.should.not.be.equal([]);
+        });
+        it('should generate random basis with equal length to configured photon size.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            baseCommunicator.generateRandomBasis();
+            baseCommunicator.randomBasis.should.have.length(PhotonsSize);
+        });
+        it('should make random basis contain elements of configured bases.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            baseCommunicator.generateRandomBasis();
+            baseCommunicator.randomBasis.forEach(function (element) {
+                assert.equal(true, (element === Diagonal || element === Rectangular));
+            });
         });
     });
     describe('#readBasisFromChannel()', () => {
