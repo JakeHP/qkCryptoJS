@@ -12,7 +12,7 @@ export var getSender = (() => {
     //jscs:disable
     function* bitGenerator() {
         var i = 0;
-        while (i < PhotonsSize) {
+        while (i <= PhotonsSize) {
             i++;
             yield Math.floor(Math.random() * (2));
         }
