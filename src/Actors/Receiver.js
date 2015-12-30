@@ -6,7 +6,12 @@ import { Diagonal, Rectangular } from "../Constants/Bases.js";
 
 export var getReceiver = (() => {
 
-    var BaseCommunicator = getBaseCommunicator();
+    var BaseCommunicator = undefined;
+    if (baseComm) {
+        BaseCommunicator = baseComm;
+    } else {
+        BaseCommunicator = getBaseCommunicator();
+    }
     var measuredPolarizations = [];
 
     function calculateBit(basis, polarization) {
