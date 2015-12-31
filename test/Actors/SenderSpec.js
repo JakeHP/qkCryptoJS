@@ -57,12 +57,12 @@ describe('BaseCommunicator', () => {
         });
     });
     describe('#calculatePolarizations()', () => {
-        it('should throw error when randomBits hasnt been initialized.', () => {
+        it("should throw error when randomBits hasn't been initialized.", () => {
             var sender = getSender();
             var randomBits = undefined;
             expect(sender.calculatePolarizations.bind({ randomBits: randomBits }, {})).to.throw(Error);
         });
-        it('should throw error when randomBasis hasnt been initialized.', () => {
+        it("should throw error when randomBasis hasn't been initialized.", () => {
             var BaseCommunicator = getBaseCommunicator();
             var sender = getSender(BaseCommunicator);
             expect(sender.calculatePolarizations.bind({}, {})).to.throw(Error);
@@ -95,7 +95,7 @@ describe('BaseCommunicator', () => {
             var sender = getSender(BaseCommunicator);
             expect(sender.calculatePolarizations.bind({ randomBits: randomBits }, {})).to.not.throw(Error);
         });
-        it('should make BaseCommunicators photons array be initialized.', () => {
+        it("should make BaseCommunicator's photons array be initialized.", () => {
             var BaseCommunicator = getBaseCommunicator();
             var sender = getSender(BaseCommunicator);
             sender.generateRandomBasis();
@@ -105,7 +105,7 @@ describe('BaseCommunicator', () => {
             BaseCommunicator.photons.should.be.not.equal(undefined);
             BaseCommunicator.photons.should.be.not.equal(null);
         });
-        it('should make BaseCommunicators photons array be of configured length.', () => {
+        it("should make BaseCommunicator's photons array be of configured length.", () => {
             var BaseCommunicator = getBaseCommunicator();
             var sender = getSender(BaseCommunicator);
             sender.generateRandomBasis();
@@ -113,6 +113,68 @@ describe('BaseCommunicator', () => {
             sender.calculatePolarizations();
             BaseCommunicator.photons.should.have.length(sender.randomBits.length);
             BaseCommunicator.photons.should.have.length(PhotonsSize);
+        });
+    });
+    describe('#sendPhotonsToChannel()', () => {
+        it('should throw error when channel is invalid.', () => {
+            var BaseCommunicator = getBaseCommunicator();
+            var sender = getSender(BaseCommunicator);
+            var channel = {
+                BasisUsedz: "abc",
+                Photonszzz: "abc",
+                Decisionzzz: "abc"
+            };
+            expect(sender.sendPhotonsToChannel.bind({}, channel)).to.throw(Error);
+        });
+        it('should not throw error when channel is valid.', () => {
+            var BaseCommunicator = getBaseCommunicator();
+            var sender = getSender(BaseCommunicator);
+            var channel = {
+                BasisUsed: [],
+                Photons: [],
+                Decision: []
+            };
+            expect(sender.sendPhotonsToChannel.bind({}, channel)).to.not.throw(Error);
+        });
+        it("channel's photons should be equal to the photons of the sender.", () => {
+            var BaseCommunicator = getBaseCommunicator();
+            var sender = getSender(BaseCommunicator);
+            var channel = {
+                BasisUsed: [],
+                Photons: [],
+                Decision: []
+            };
+            sender.sendPhotonsToChannel(channel);
+            channel.Photons.should.have.length(BaseCommunicator.photons.length);
+        });
+    });
+    describe('#generateSharedKey()', () => {
+        it('should throw error when randomBasis and otherBasis are not of equal length.', () => {
+            var BaseCommunicator = getBaseCommunicator();
+            BaseCommunicator.randomBasis = [Diagonal, Diagonal];
+            BaseCommunicator.otherBasis = [Diagonal, Rectangular, Rectangular];
+            var sender = getSender(BaseCommunicator);
+            expect(sender.generateSharedKey.bind({}, {})).to.throw(Error);
+        });
+        it('should throw error when randomBits and randomBasis/otherBasis are not of equal length.', () => {
+            var BaseCommunicator = getBaseCommunicator();
+            BaseCommunicator.randomBasis = [Diagonal, Diagonal, Rectangular];
+            BaseCommunicator.otherBasis = [Diagonal, Rectangular, Rectangular];
+            var sender = getSender(BaseCommunicator);
+            var thisContext = {
+                randomBits: [0, 1]
+            };
+            expect(sender.generateSharedKey.bind(thisContext, {})).to.throw(Error);
+        });
+        it("should generate a proper sharedkey.", () => {
+            var BaseCommunicator = getBaseCommunicator();
+            BaseCommunicator.randomBasis = [Diagonal, Diagonal, Rectangular];
+            BaseCommunicator.otherBasis = [Diagonal, Rectangular, Rectangular];
+            var sender = getSender(BaseCommunicator);
+            sender.randomBits = [0, 1, 1];
+            sender.generateSharedKey();
+            BaseCommunicator.sharedKey.should.have.length(2);
+            assert.deepEqual(BaseCommunicator.sharedKey, [0,1]);
         });
     });
 });
