@@ -14,14 +14,14 @@ export var getPhoton = (() => {
                 }
             }
         }
-        throw `Photon.js - isValidState() - Invalid State Provided - State: ${state}`;
+        throw new Error(`Photon.js - isValidState() - Invalid State Provided - State: ${state}`);
     }
 
     function isValidBasis(basis) {
         if (basis === Diagonal || basis === Rectangular) {
             return true;
         }
-        throw `Photon.js - isValidState() - Invalid Basis Provided - Basis: ${basis}`;
+        throw new Error(`Photon.js - isValidState() - Invalid Basis Provided - Basis: ${basis}`);
     }
 
     function setState(state) {

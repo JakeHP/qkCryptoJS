@@ -4,7 +4,7 @@ import { PhotonsSize } from "../Config/AppConfig.js";
 import { Degrees } from "../Constants/Polarizations.js";
 import { Diagonal, Rectangular } from "../Constants/Bases.js";
 
-export var getReceiver = (() => {
+export var getReceiver = ((baseComm) => {
 
     var BaseCommunicator = undefined;
     if (baseComm) {
