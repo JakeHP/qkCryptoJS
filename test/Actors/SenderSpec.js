@@ -5,6 +5,7 @@ const expect = chai.expect;
 chai.should();
 import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
 import { getSender } from "../../src/Actors/Sender.js";
+import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { Diagonal, Rectangular } from "../../src/Constants/Bases.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
@@ -129,21 +130,13 @@ describe('BaseCommunicator', () => {
         it('should not throw error when channel is valid.', () => {
             var BaseCommunicator = getBaseCommunicator();
             var sender = getSender(BaseCommunicator);
-            var channel = {
-                BasisUsed: [],
-                Photons: [],
-                Decision: []
-            };
+            var channel = getQuantumChannel();
             expect(sender.sendPhotonsToChannel.bind({}, channel)).to.not.throw(Error);
         });
         it("channel's photons should be equal to the photons of the sender.", () => {
             var BaseCommunicator = getBaseCommunicator();
             var sender = getSender(BaseCommunicator);
-            var channel = {
-                BasisUsed: [],
-                Photons: [],
-                Decision: []
-            };
+            var channel = getQuantumChannel();
             sender.sendPhotonsToChannel(channel);
             channel.Photons.should.have.length(BaseCommunicator.photons.length);
         });
