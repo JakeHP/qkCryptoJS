@@ -27,7 +27,7 @@ describe('Receiver', () => {
             receiver.generateRandomBasis();
             var channel = getQuantumChannel();
             receiver.sendBasisToChannel(channel);
-            channel.BasisUsed.should.have.length(128);
+            channel.BasisUsed.should.have.length(PhotonsSize);
         });
     });
     describe('#generateSharedKey()', () => {

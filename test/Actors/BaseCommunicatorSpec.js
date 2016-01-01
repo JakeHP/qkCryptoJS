@@ -118,6 +118,14 @@ describe('BaseCommunicator', () => {
             baseCommunicator.measuredPolarizations.should.have.length(3);
         });
     });
+    describe('#getSharedKey()', () => {
+        it('should get the correct property value.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var sharedKey = [0, 1, 0];
+            baseCommunicator.sharedKey = sharedKey;
+            expect(baseCommunicator.getSharedKey()).to.be.equal(sharedKey);
+        });
+    });
     describe('#readBasisFromChannel()', () => {
         it('otherBasis should remain empty when channel is invalid.', () => {
             var baseCommunicator = getBaseCommunicator();
@@ -172,6 +180,14 @@ describe('BaseCommunicator', () => {
             };
             baseCommunicator.decide();
             expect(baseCommunicator.decision).to.be.equal(true);
+        });
+    });
+    describe('#getDecision()', () => {
+        it('should get the correct property value.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var decision = true;
+            baseCommunicator.decision = decision;
+            expect(baseCommunicator.getDecision()).to.be.equal(decision);
         });
     });
     describe('#sendDecisionToChannel()', () => {

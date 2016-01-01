@@ -26,30 +26,30 @@ export var getPhoton = (() => {
 
     function setState(state) {
         if (isValidState(state)) {
-            PolarizationState = state;
+            this.PolarizationState = state;
         }
     }
 
     function setBasis(basis) {
         if (isValidBasis(basis)) {
-            Basis = basis;
+            this.Basis = basis;
         }
     }
 
     function measure(basisToMeasureIn) {
         if (isValidBasis(basisToMeasureIn)) {
-            if (Basis === basisToMeasureIn) {
-                return PolarizationState;
+            if (this.Basis === basisToMeasureIn) {
+                return this.PolarizationState;
             } else {
-                Basis = basisToMeasureIn;
+                this.Basis = basisToMeasureIn;
                 var randomPolarBit = Math.floor(Math.random() * (2));
-                if (Basis === Diagonal) {
+                if (this.Basis === Diagonal) {
                     if (randomPolarBit === 0) {
                         return Degrees.FortyFive;
                     } else if (randomPolarBit === 1) {
                         return Degrees.OneHundredThirtyFive;
                     }
-                } else if (Basis === Rectangular) {
+                } else if (this.Basis === Rectangular) {
                     if (randomPolarBit === 0) {
                         return Degrees.Zero;
                     } else if (randomPolarBit === 1) {

@@ -87,7 +87,7 @@ export var getBaseCommunicator = (() => {
                     this.measuredPolarizations[i] = this.photons[i].measure(basis);
                 }
             } else {
-                throw new Error('Length of polars in channel is not same as attacker random basis.');
+                throw new Error('Length of polars in channel is not same as random basis.');
             }
         }
     }

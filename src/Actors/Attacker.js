@@ -15,11 +15,9 @@ export var getAttacker = ((baseComm) => {
 
     function interceptPhotonsFromChannel(channel) {
         if (BaseCommunicator.isValidChannel(channel)) {
-            this.generateRandomBasis();
+            BaseCommunicator.generateRandomBasis();
             BaseCommunicator.measurePhotonsFromChannel(channel);
             channel.Photons = BaseCommunicator.photons.slice(0);
-        } else {
-            throw new Error('Length of polars in channel is not same as attacker random basis.');
         }
     }
 
@@ -42,20 +40,16 @@ export var getAttacker = ((baseComm) => {
         if (BaseCommunicator.randomBasis.length !== this.senderBasis.length) {
             throw new Error('Length of generated random basis does not match sniffed basis.');
         }
-        if (BaseCommunicator.measuredPolarizations.length !== BaseCommunicator.randomBasis.length) {
-            throw new Error("Length of measured polarizations does not match random basis.");
-        }
         for (var i = 0; i < BaseCommunicator.measuredPolarizations.length; i++) {
-            var senderBasis = this.senderBasis[i];
-            var receiverBasis = this.receiverBasis[i];
-            if (senderBasis === receiverBasis) {
-                BaseCommunicator.sharedKey.push(BaseCommunicator.calculateBit(senderBasis, BaseCommunicator.measuredPolarizations[i]));
+            var currentSenderBasis = this.senderBasis[i];
+            var currentReceiverBasis = this.receiverBasis[i];
+            if (currentSenderBasis === currentReceiverBasis) {
+                BaseCommunicator.sharedKey.push(BaseCommunicator.calculateBit(currentSenderBasis, BaseCommunicator.measuredPolarizations[i]));
             }
         }
     }
 
     return {
-        generateRandomBasis: BaseCommunicator.generateRandomBasis.bind(BaseCommunicator),
         interceptPhotonsFromChannel: interceptPhotonsFromChannel,
         interceptSenderBasisFromChannel: interceptSenderBasisFromChannel,
         interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel,
