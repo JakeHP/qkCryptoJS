@@ -4,9 +4,11 @@ const assert = chai.assert;
 const expect = chai.expect;
 chai.should();
 import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
+import { getPhoton } from "../../src/Messages/Photon.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 import { Diagonal, Rectangular } from "../../src/Constants/Bases.js";
+import { Degrees } from "../../src/Constants/Polarizations.js";
 
 describe('BaseCommunicator', () => {
     describe('#props', () => {
@@ -80,6 +82,40 @@ describe('BaseCommunicator', () => {
             baseCommunicator.randomBasis.forEach(function (element) {
                 assert.equal(true, (element === Diagonal || element === Rectangular));
             });
+        });
+    });
+    describe('#measurePhotonsFromChannel()', () => {
+        it('should throw error when an invalid channel is passed.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            expect(baseCommunicator.measurePhotonsFromChannel.bind({}, { fake: "Channel" })).to.throw(Error);
+        });
+        it('should throw error when the basecomms photon and basis length are not equal.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            var channel = getQuantumChannel();
+            channel.Photons.push(getPhoton());
+            channel.Photons.push(getPhoton());
+            channel.Photons.push(getPhoton());
+            // 3 photons in channel, that get read into receiver's basecomm. No basis generated. 0 !== 3
+            expect(baseCommunicator.measurePhotonsFromChannel.bind({}, channel)).to.throw(Error);
+        });
+        it('should measure photons.', () => {
+            var baseCommunicator = getBaseCommunicator();
+            baseCommunicator.randomBasis = [Diagonal, Diagonal, Diagonal];
+            var channel = getQuantumChannel();
+            var phoA = getPhoton();
+            phoA.setState(Degrees.Zero);
+            phoA.setBasis(Rectangular);
+            var phoB = getPhoton();
+            phoB.setState(Degrees.Ninety);
+            phoB.setBasis(Rectangular);
+            var phoC = getPhoton();
+            phoC.setState(Degrees.FortyFive);
+            phoC.setBasis(Diagonal);
+            channel.Photons.push(phoA);
+            channel.Photons.push(phoB);
+            channel.Photons.push(phoC);
+            baseCommunicator.measurePhotonsFromChannel(channel);
+            baseCommunicator.measuredPolarizations.should.have.length(3);
         });
     });
     describe('#readBasisFromChannel()', () => {

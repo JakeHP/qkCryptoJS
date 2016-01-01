@@ -127,11 +127,11 @@ export var getSender = ((baseComm) => {
         sendBasisToChannel: sendBasisToChannel,
         readBasisFromChannel: readBasisFromChannel,
         generateSharedKey: generateSharedKey,
-        decide: decide,
-        sendDecisionToChannel: sendDecisionToChannel,
+        getSharedKey: getSharedKey,
         readDecisionFromChannel: readDecisionFromChannel,
+        decide: decide,
         getDecision: getDecision,
-        getSharedKey: getSharedKey
+        sendDecisionToChannel: sendDecisionToChannel
     };
 
 });

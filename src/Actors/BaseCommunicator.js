@@ -1,12 +1,14 @@
 import { Diagonal, Rectangular } from "../Constants/Bases.js";
 import { PhotonsSize, MinSharedKeyLength } from "../Config/AppConfig.js";
+import { Degrees } from "../Constants/Polarizations.js";
 
 export var getBaseCommunicator = (() => {
 
     var randomBasis = [];
     var otherBasis = [];
-    var sharedKey = [];
     var photons = [];
+    var measuredPolarizations = [];
+    var sharedKey = [];
     var decision = undefined;
     var otherDecision = undefined;
 
@@ -28,6 +30,25 @@ export var getBaseCommunicator = (() => {
             i = gen.next().value;
             if (i !== undefined) {
                 this.randomBasis.push(i);
+            }
+        }
+    }
+
+    function calculateBit(basis, polarization) {
+        if (basis !== Diagonal && basis !== Rectangular) {
+            throw new Error(`Invalid parameters. Basis: ${basis} Polarization: ${polarization}`);
+        }
+        if (basis === Rectangular) {
+            if (polarization === Degrees.Zero) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }else {
+            if (polarization === Degrees.FortyFive) {
+                return 0;
+            } else {
+                return 1;
             }
         }
     }
@@ -56,6 +77,27 @@ export var getBaseCommunicator = (() => {
         }
     }
 
+    function measurePhotonsFromChannel(channel) {
+        if (isValidChannel(channel)) {
+            this.measuredPolarizations = [];
+            this.photons = channel.Photons.slice(0);
+            if (this.photons.length === this.randomBasis.length) {
+                for (var i = 0; i < this.photons.length; i++) {
+                    var basis = this.randomBasis[i];
+                    this.measuredPolarizations[i] = this.photons[i].measure(basis);
+                }
+            } else {
+                throw new Error('Length of polars in channel is not same as attacker random basis.');
+            }
+        }
+    }
+
+    function readDecisionFromChannel(channel) {
+        if (isValidChannel(channel)) {
+            this.otherDecision = channel.Decision;
+        }
+    }
+
     function decide() {
         if (this.sharedKey === undefined || this.sharedKey.length <= 0) {
             throw new Error("Shared key is invalid.");
@@ -69,26 +111,25 @@ export var getBaseCommunicator = (() => {
         }
     }
 
-    function readDecisionFromChannel(channel) {
-        if (isValidChannel(channel)) {
-            this.otherDecision = channel.Decision;
-        }
-    }
-
     return {
-        photons: photons,
+        // Props
         randomBasis: randomBasis,
         otherBasis: otherBasis,
+        photons: photons,
+        measuredPolarizations: measuredPolarizations,
         sharedKey: sharedKey,
         decision: decision,
         otherDecision: otherDecision,
-        isValidChannel: isValidChannel,
+        // Functions
         generateRandomBasis: generateRandomBasis,
+        calculateBit: calculateBit,
+        isValidChannel: isValidChannel,
         readBasisFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
+        measurePhotonsFromChannel: measurePhotonsFromChannel,
+        readDecisionFromChannel: readDecisionFromChannel,
         decide: decide,
-        sendDecisionToChannel: sendDecisionToChannel,
-        readDecisionFromChannel: readDecisionFromChannel
+        sendDecisionToChannel: sendDecisionToChannel
     };
 
 });
