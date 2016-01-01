@@ -40,7 +40,7 @@ export var getPhoton = (() => {
         if (isValidBasis(basisToMeasureIn)) {
             if (Basis === basisToMeasureIn) {
                 return PolarizationState;
-            }else {
+            } else {
                 Basis = basisToMeasureIn;
                 var randomPolarBit = Math.floor(Math.random() * (2));
                 if (Basis === Diagonal) {
