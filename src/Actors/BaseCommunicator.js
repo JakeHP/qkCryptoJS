@@ -92,6 +92,10 @@ export var getBaseCommunicator = (() => {
         }
     }
 
+    function getSharedKey() {
+        return this.sharedKey;
+    }
+
     function readDecisionFromChannel(channel) {
         if (isValidChannel(channel)) {
             this.otherDecision = channel.Decision;
@@ -103,6 +107,10 @@ export var getBaseCommunicator = (() => {
             throw new Error("Shared key is invalid.");
         }
         this.decision = (this.sharedKey.length >= MinSharedKeyLength);
+    }
+
+    function getDecision() {
+        return this.decision;
     }
 
     function sendDecisionToChannel(channel) {
@@ -127,8 +135,10 @@ export var getBaseCommunicator = (() => {
         readBasisFromChannel: readBasisFromChannel,
         sendBasisToChannel: sendBasisToChannel,
         measurePhotonsFromChannel: measurePhotonsFromChannel,
+        getSharedKey: getSharedKey,
         readDecisionFromChannel: readDecisionFromChannel,
         decide: decide,
+        getDecision: getDecision,
         sendDecisionToChannel: sendDecisionToChannel
     };
 

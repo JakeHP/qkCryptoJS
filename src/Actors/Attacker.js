@@ -54,21 +54,13 @@ export var getAttacker = ((baseComm) => {
         }
     }
 
-    /* Base Calls */
-    function generateRandomBasis() {
-        BaseCommunicator.generateRandomBasis();
-    }
-    function getSharedKey() {
-        return BaseCommunicator.sharedKey;
-    }
-
     return {
-        generateRandomBasis: generateRandomBasis,
+        generateRandomBasis: BaseCommunicator.generateRandomBasis.bind(BaseCommunicator),
         interceptPhotonsFromChannel: interceptPhotonsFromChannel,
         interceptSenderBasisFromChannel: interceptSenderBasisFromChannel,
         interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel,
         generateSharedKey: generateSharedKey,
-        getSharedKey: getSharedKey
+        getSharedKey: BaseCommunicator.getSharedKey.bind(BaseCommunicator)
     };
 
 });

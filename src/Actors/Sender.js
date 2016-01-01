@@ -93,45 +93,19 @@ export var getSender = ((baseComm) => {
         }
     }
 
-    /* Base Calls */
-    function generateRandomBasis() {
-        BaseCommunicator.generateRandomBasis();
-    }
-    function sendBasisToChannel(channel) {
-        BaseCommunicator.sendBasisToChannel(channel);
-    }
-    function readBasisFromChannel(channel) {
-        BaseCommunicator.readBasisFromChannel(channel);
-    }
-    function decide() {
-        BaseCommunicator.decide();
-    }
-    function sendDecisionToChannel(channel) {
-        BaseCommunicator.sendDecisionToChannel(channel);
-    }
-    function readDecisionFromChannel(channel) {
-        BaseCommunicator.readDecisionFromChannel(channel);
-    }
-    function getDecision() {
-        return BaseCommunicator.decision;
-    }
-    function getSharedKey() {
-        return BaseCommunicator.sharedKey;
-    }
-
     return {
         generateRandomBits: generateRandomBits,
-        generateRandomBasis: generateRandomBasis,
+        generateRandomBasis: BaseCommunicator.generateRandomBasis.bind(BaseCommunicator),
         calculatePolarizations: calculatePolarizations,
         sendPhotonsToChannel: sendPhotonsToChannel,
-        sendBasisToChannel: sendBasisToChannel,
-        readBasisFromChannel: readBasisFromChannel,
+        sendBasisToChannel: BaseCommunicator.sendBasisToChannel.bind(BaseCommunicator),
+        readBasisFromChannel: BaseCommunicator.readBasisFromChannel.bind(BaseCommunicator),
         generateSharedKey: generateSharedKey,
-        getSharedKey: getSharedKey,
-        readDecisionFromChannel: readDecisionFromChannel,
-        decide: decide,
-        getDecision: getDecision,
-        sendDecisionToChannel: sendDecisionToChannel
+        getSharedKey: BaseCommunicator.getSharedKey.bind(BaseCommunicator),
+        readDecisionFromChannel: BaseCommunicator.readDecisionFromChannel.bind(BaseCommunicator),
+        decide: BaseCommunicator.decide.bind(BaseCommunicator),
+        getDecision: BaseCommunicator.getDecision.bind(BaseCommunicator),
+        sendDecisionToChannel: BaseCommunicator.sendDecisionToChannel.bind(BaseCommunicator)
     };
 
 });

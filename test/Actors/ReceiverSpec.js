@@ -9,8 +9,27 @@ import { getReceiver } from "../../src/Actors/Receiver.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { Diagonal, Rectangular } from "../../src/Constants/Bases.js";
 import { Degrees } from "../../src/Constants/Polarizations.js";
+import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
 describe('Receiver', () => {
+    describe('#generateRandomBasis()', () => {
+        it('should call base communicator correctly.', () => {
+            var baseComm = getBaseCommunicator();
+            var receiver = getReceiver(baseComm);
+            receiver.generateRandomBasis();
+            baseComm.randomBasis.should.have.length(PhotonsSize);
+        });
+    });
+    describe('#sendBasisToChannel()', () => {
+        it('should call base communicator correctly.', () => {
+            var baseComm = getBaseCommunicator();
+            var receiver = getReceiver(baseComm);
+            receiver.generateRandomBasis();
+            var channel = getQuantumChannel();
+            receiver.sendBasisToChannel(channel);
+            channel.BasisUsed.should.have.length(128);
+        });
+    });
     describe('#generateSharedKey()', () => {
         it('should throw error when random basis and other basis are not of same length.', () => {
             var baseComm = getBaseCommunicator();
