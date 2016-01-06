@@ -8,14 +8,12 @@ import { getSender } from "../../src/Actors/Sender.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
-/*
 describe('Sender and Channel', () => {
     it('sender should send photons to channel properly.', () => {
         var baseComm = getBaseCommunicator();
         var sender = getSender(baseComm);
         var channel = getQuantumChannel();
-        sender.generateRandomBits();
-        sender.generateRandomBasis();
+        sender.generateRandoms();
         sender.calculatePolarizations();
         sender.sendPhotonsToChannel(channel);
         channel.Photons.should.not.be.equal(undefined);
@@ -28,8 +26,7 @@ describe('Sender and Channel', () => {
         var baseComm = getBaseCommunicator();
         var sender = getSender(baseComm);
         var channel = getQuantumChannel();
-        sender.generateRandomBits();
-        sender.generateRandomBasis();
+        sender.generateRandoms();
         sender.calculatePolarizations();
         sender.sendPhotonsToChannel(channel);
         sender.sendBasisToChannel(channel);
@@ -40,4 +37,3 @@ describe('Sender and Channel', () => {
         assert.deepEqual(baseComm.randomBasis, channel.BasisUsed);
     });
 });
-*/

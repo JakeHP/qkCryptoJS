@@ -41,13 +41,13 @@ export var getBaseCommunicator = (() => {
         if (basis === Rectangular) {
             if (polarization === Degrees.Zero) {
                 return 0;
-            } else {
+            } else if (polarization === Degrees.Ninety) {
                 return 1;
             }
-        }else {
+        } else {
             if (polarization === Degrees.FortyFive) {
                 return 0;
-            } else {
+            } else if (polarization === Degrees.OneHundredThirtyFive) {
                 return 1;
             }
         }
