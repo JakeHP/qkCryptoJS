@@ -10,8 +10,7 @@ var Receiver = getReceiver();
 var Attacker = getAttacker();
 var QuantumChannel = getQuantumChannel();
 
-Sender.generateRandomBits();
-Sender.generateRandomBasis();
+Sender.generateRandoms();
 Sender.calculatePolarizations();
 Sender.sendPhotonsToChannel(QuantumChannel);
 

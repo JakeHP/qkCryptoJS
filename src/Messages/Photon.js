@@ -3,7 +3,7 @@ import { Diagonal, Rectangular } from "../Constants/Bases.js";
 
 export var getPhoton = (() => {
 
-    var PolarizationState = undefined;
+    var Polarization = undefined;
     var Basis = undefined;
 
     function isValidState(state) {
@@ -26,30 +26,30 @@ export var getPhoton = (() => {
 
     function setState(state) {
         if (isValidState(state)) {
-            this.PolarizationState = state;
+            Polarization = state;
         }
     }
 
     function setBasis(basis) {
         if (isValidBasis(basis)) {
-            this.Basis = basis;
+            Basis = basis;
         }
     }
 
     function measure(basisToMeasureIn) {
         if (isValidBasis(basisToMeasureIn)) {
-            if (this.Basis === basisToMeasureIn) {
-                return this.PolarizationState;
+            if (Basis === basisToMeasureIn) {
+                return Polarization;
             } else {
-                this.Basis = basisToMeasureIn;
+                Basis = basisToMeasureIn;
                 var randomPolarBit = Math.floor(Math.random() * (2));
-                if (this.Basis === Diagonal) {
+                if (Basis === Diagonal) {
                     if (randomPolarBit === 0) {
                         return Degrees.FortyFive;
                     } else if (randomPolarBit === 1) {
                         return Degrees.OneHundredThirtyFive;
                     }
-                } else if (this.Basis === Rectangular) {
+                } else if (Basis === Rectangular) {
                     if (randomPolarBit === 0) {
                         return Degrees.Zero;
                     } else if (randomPolarBit === 1) {

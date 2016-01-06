@@ -8,6 +8,7 @@ import { getSender } from "../../src/Actors/Sender.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
+/*
 describe('Sender and Channel', () => {
     it('sender should send photons to channel properly.', () => {
         var baseComm = getBaseCommunicator();
@@ -39,3 +40,4 @@ describe('Sender and Channel', () => {
         assert.deepEqual(baseComm.randomBasis, channel.BasisUsed);
     });
 });
+*/

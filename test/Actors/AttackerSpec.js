@@ -29,8 +29,7 @@ describe('Attacker', () => {
             var attacker = getAttacker(attackerBaseComm);
 
             var sender = getSender();
-            sender.generateRandomBits();
-            sender.generateRandomBasis();
+            sender.generateRandoms();
             sender.calculatePolarizations();
             sender.sendPhotonsToChannel(channel);
 
@@ -43,8 +42,7 @@ describe('Attacker', () => {
             var attacker = getAttacker(attackerBaseComm);
 
             var sender = getSender();
-            sender.generateRandomBits();
-            sender.generateRandomBasis();
+            sender.generateRandoms();
             sender.calculatePolarizations();
             sender.sendPhotonsToChannel(channel);
 
@@ -119,8 +117,7 @@ describe('Attacker', () => {
             var sender = getSender();
             var receiver = getReceiver();
 
-            sender.generateRandomBits();
-            sender.generateRandomBasis();
+            sender.generateRandoms();
             sender.calculatePolarizations();
             sender.sendPhotonsToChannel(channel);
 
