@@ -24,20 +24,28 @@ describe('Sender, Channel, and Attacker', () => {
 
         attacker.interceptPhotonsFromChannel(channel);
 
-        // sender measure channel photons, if unchanged, *SHOULD* be 100% accurate, but won't due to attacker.
-        var resultPhotons = channel.Photons.splice(0);
-        var measuredPhotons = [];
-        for (var i = 0; i < resultPhotons.length; i++) {
-            measuredPhotons[i] = resultPhotons[i].measure(senderBaseComm.randomBasis[i]);
+        // sender measures channel photons, *SHOULD* be 100% accurate, but won't due to attacker.
+        var newUnmeasuredPhotons = channel.Photons.splice(0);
+        var newlyMeasuredPhotons = [];
+        for (var i = 0; i < newUnmeasuredPhotons.length; i++) {
+            newlyMeasuredPhotons[i] = newUnmeasuredPhotons[i].measure(senderBaseComm.randomBasis[i]);
         }
 
         // sender measure sender's own photons, 100% accuracy
-        var senderPhotons = senderBaseComm.photons.splice(0);
-        var senderMeasuredPhotons = [];
-        for (var i = 0; i < resultPhotons.length; i++) {
-            senderMeasuredPhotons[i] = senderPhotons[i].measure(senderBaseComm.randomBasis[i]);
+        var originalUnmeasuredPhotons = senderBaseComm.photons.splice(0);
+        var originalMeasuredPhotons = [];
+        for (var i = 0; i < originalUnmeasuredPhotons.length; i++) {
+            originalMeasuredPhotons[i] = originalUnmeasuredPhotons[i].measure(senderBaseComm.randomBasis[i]);
         }
 
-        assert.notDeepEqual(measuredPhotons, senderMeasuredPhotons);
+        assert.notDeepEqual(newlyMeasuredPhotons, originalMeasuredPhotons);
+
+        var differences = 0;
+        for (var i = 0; i < newlyMeasuredPhotons.length; i++) {
+            if (newlyMeasuredPhotons[i] !== originalMeasuredPhotons[i]) {
+                differences++;
+            }
+        }
+        assert.isTrue(differences > 15);
     });
 });

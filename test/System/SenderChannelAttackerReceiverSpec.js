@@ -6,14 +6,15 @@ chai.should();
 import { getBaseCommunicator } from "../../src/Actors/BaseCommunicator.js";
 import { getSender } from "../../src/Actors/Sender.js";
 import { getReceiver } from "../../src/Actors/Receiver.js";
+import { getAttacker } from "../../src/Actors/Attacker.js";
 import { getQuantumChannel } from "../../src/Channels/QuantumChannel.js";
 import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
-describe('Sender, Channel, and Receiver', function () {
+describe('Sender, Channel, Receiver, and Attacker', function () {
     this.timeout(150000);
-    it('Sender and Receiver should have same key when coming to an agreement with no Attacker.', () => {
+    it('Sender And Receiver should have different keys when coming to an agreement with an Attacker listening.', () => {
         var agreementCount = 0;
-        var numberOfSystemRuns = 5000;
+        var numberOfSystemRuns = 1000;
 
         for (var i = 0; i < numberOfSystemRuns; i++) {
             var senderBaseComm = getBaseCommunicator();
@@ -23,20 +24,28 @@ describe('Sender, Channel, and Receiver', function () {
             var receiverBaseComm = getBaseCommunicator();
             var receiver = getReceiver(receiverBaseComm);
 
+            var attackerBaseComm = getBaseCommunicator();
+            var attacker = getAttacker(attackerBaseComm);
+
             sender.generateRandoms();
             sender.calculatePolarizations();
             sender.sendPhotonsToChannel(channel);
+
+            attacker.interceptPhotonsFromChannel(channel);
 
             receiver.generateRandomBasis();
             receiver.measurePhotonsFromChannel(channel);
 
             sender.sendBasisToChannel(channel);
+            attacker.interceptSenderBasisFromChannel(channel);
             receiver.readBasisFromChannel(channel);
 
             receiver.sendBasisToChannel(channel);
+            attacker.interceptReceiverBasisFromChannel(channel);
             sender.readBasisFromChannel(channel);
 
             receiver.generateSharedKey();
+            attacker.generateSharedKey();
             sender.generateSharedKey();
 
             sender.decide();
@@ -47,18 +56,10 @@ describe('Sender, Channel, and Receiver', function () {
 
             receiver.sendDecisionToChannel(channel);
             sender.readDecisionFromChannel(channel);
-
             if (receiver.getDecision() && sender.getDecision()) {
-                assert.deepEqual(receiver.getSharedKey(), sender.getSharedKey());
+                assert.notDeepEqual(receiver.getSharedKey(), sender.getSharedKey());
                 agreementCount++;
             }
         }
-        /*
-          This isn't guaranteed to pass. Receiver's random basis generation and measurement
-          can cause to fail even with no attacker. The hope is that over a large amount
-          of simulations, that atleast 50% of the time the two agree on a key after an
-          exchange.
-        */
-        assert.isTrue(agreementCount > 0);
     });
 });

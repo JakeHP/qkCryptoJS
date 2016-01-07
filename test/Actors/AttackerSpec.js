@@ -135,6 +135,7 @@ describe('Attacker', () => {
             sender.readBasisFromChannel(channel);
             expect(attacker.generateSharedKey.bind(attacker, {})).to.not.throw(Error);
             var sharedKey = attacker.getSharedKey();
+            // TODO research attacker shared key generation
             sharedKey.should.not.be.equal(undefined);
             sharedKey.should.not.be.equal(null);
             sharedKey.should.not.be.equal([]);
