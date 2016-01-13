@@ -33,28 +33,10 @@ export var getAttacker = ((baseComm) => {
         }
     }
 
-    function generateSharedKey() {
-        if (this.senderBasis.length !== this.receiverBasis.length) {
-            throw new Error('Length of sniffed basis do not match.');
-        }
-        if (BaseCommunicator.randomBasis.length !== this.senderBasis.length) {
-            throw new Error('Length of generated random basis does not match sniffed basis.');
-        }
-        for (var i = 0; i < BaseCommunicator.measuredPolarizations.length; i++) {
-            var currentSenderBasis = this.senderBasis[i];
-            var currentReceiverBasis = this.receiverBasis[i];
-            if (currentSenderBasis === currentReceiverBasis) {
-                BaseCommunicator.sharedKey.push(BaseCommunicator.calculateBit(currentSenderBasis, BaseCommunicator.measuredPolarizations[i]));
-            }
-        }
-    }
-
     return {
         interceptPhotonsFromChannel: interceptPhotonsFromChannel,
         interceptSenderBasisFromChannel: interceptSenderBasisFromChannel,
-        interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel,
-        generateSharedKey: generateSharedKey,
-        getSharedKey: BaseCommunicator.getSharedKey.bind(BaseCommunicator)
+        interceptReceiverBasisFromChannel: interceptReceiverBasisFromChannel
     };
 
 });

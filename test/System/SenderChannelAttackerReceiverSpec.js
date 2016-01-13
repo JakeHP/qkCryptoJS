@@ -12,7 +12,7 @@ import { PhotonsSize, MinSharedKeyLength } from "../../src/Config/AppConfig.js";
 
 describe('Sender, Channel, Receiver, and Attacker', function () {
     this.timeout(150000);
-    it('Sender And Receiver should have different keys when coming to an agreement with an Attacker listening.', () => {
+    it('#Sender And Receiver should have different keys when coming to an agreement with an Attacker listening', () => {
         var agreementCount = 0;
         var numberOfSystemRuns = 1000;
 
@@ -45,7 +45,6 @@ describe('Sender, Channel, Receiver, and Attacker', function () {
             sender.readBasisFromChannel(channel);
 
             receiver.generateSharedKey();
-            attacker.generateSharedKey();
             sender.generateSharedKey();
 
             sender.decide();

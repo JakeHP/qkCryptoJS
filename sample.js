@@ -28,7 +28,6 @@ Attacker.interceptReceiverBasisFromChannel(QuantumChannel);
 Sender.readBasisFromChannel(QuantumChannel);
 
 Receiver.generateSharedKey();
-Attacker.generateSharedKey();
 Sender.generateSharedKey();
 
 Sender.decide();
