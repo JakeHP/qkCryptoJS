@@ -1,6 +1,13 @@
 # qkCryptoJS [![Build Status](https://travis-ci.org/Jakehp/qkCryptoJS.svg?branch=master)](https://travis-ci.org/Jakehp/qkCryptoJS) [![Coverage Status](https://coveralls.io/repos/Jakehp/qkCryptoJS/badge.svg?branch=master&service=github)](https://coveralls.io/github/Jakehp/qkCryptoJS?branch=master) [![Dependency Status](https://david-dm.org/Jakehp/qkCryptoJS.svg)](https://david-dm.org/Jakehp/qkCryptoJS)
 A Quantum Key Distribution system, based on BB84, using emulated photons and channels.
 
+# Project Roadmap
+1. Bit & Basis Generation :white_check_mark:
+2. Sending & Receiving Of Basis :white_check_mark:
+3. Shared Key Generation :white_check_mark:
+4. Key Reconciliation :white_medium_small_square:
+5. Sending & Receiving Of Decision :white_check_mark:
+
 # Build Steps
 * Install [nodejs](http://nodejs.org/).
 * Open terminal and navigate to source code directory
