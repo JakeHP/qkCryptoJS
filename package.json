@@ -10,16 +10,12 @@
   },
   "dependencies": {
     "babel": "^6.5.2",
-    "babel-core": "^6.7.4",
+    "babel-core": "^6.7.7",
     "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.6.0",
     "babel-register": "^6.7.2",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-mocha": "^2.2.0",
-    "mocha": "^2.4.5",
     "watchify": "^3.7.0"
   },
   "scripts": {
@@ -29,12 +25,13 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.4.1",
-    "gulp": "^3.9.0",
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
     "gulp-coveralls": "^0.1.4",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-istanbul": "^0.10.4",
     "gulp-jscs": "^3.0.2",
+    "gulp-mocha": "^2.2.0",
     "isparta": "^4.0.0",
-    "mocha": "^2.3.4"
+    "mocha": "^2.4.5"
   }
 }
